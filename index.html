@@ -1010,6 +1010,7 @@
             padding: 25px;
             border-radius: 12px 12px 0 0;
             text-align: center;
+            position: relative;
         }
 
         .modal-header h3 {
@@ -1036,6 +1037,11 @@
             font-size: 1.5rem;
             cursor: pointer;
             transition: var(--transition);
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .modal-close:hover {
@@ -1183,15 +1189,6 @@
             }
             50% {
                 transform: translateY(-20px);
-            }
-        }
-
-        @keyframes typing {
-            from {
-                width: 0;
-            }
-            to {
-                width: 100%;
             }
         }
 
@@ -1489,16 +1486,6 @@
             opacity: 1;
             visibility: visible;
         }
-
-        /* Service icons colors */
-        .fa-wrench { color: var(--primary); }
-        .fa-bolt { color: #FFD700; }
-        .fa-tools { color: var(--info); }
-        .fa-truck-loading { color: var(--success); }
-        .fa-road { color: var(--warning); }
-        .fa-map-marked-alt { color: #8B4513; }
-        .fa-drafting-compass { color: var(--secondary); }
-        .fa-concierge-bell { color: #DC143C; }
     </style>
 </head>
 <body>
@@ -1662,7 +1649,7 @@
                         <i class="fas fa-faucet"></i>
                     </div>
                     <div class="service-content">
-                        <h3><i class="fas fa-wrench"></i> Plomberie 🪠</h3>
+                        <h3><i class="fas fa-wrench"></i> Plomberie</h3>
                         <p>Installation, réparation et maintenance des systèmes de plomberie pour bâtiments résidentiels, commerciaux et industriels.</p>
                         <a href="#contact" class="btn">En savoir plus</a>
                     </div>
@@ -1673,7 +1660,7 @@
                         <i class="fas fa-bolt"></i>
                     </div>
                     <div class="service-content">
-                        <h3><i class="fas fa-bolt"></i> Électricité ⚡️</h3>
+                        <h3><i class="fas fa-bolt"></i> Électricité</h3>
                         <p>Installation électrique complète, mise aux normes, dépannage et maintenance des systèmes électriques pour tous types de bâtiments.</p>
                         <a href="#contact" class="btn">En savoir plus</a>
                     </div>
@@ -1684,7 +1671,7 @@
                         <i class="fas fa-truck-loading"></i>
                     </div>
                     <div class="service-content">
-                        <h3><i class="fas fa-tools"></i> Location de matériels 🏗️</h3>
+                        <h3><i class="fas fa-tools"></i> Location de matériels</h3>
                         <p>Location d'équipements et matériels de construction : grues, bulldozers, excavatrices, bétonnières, échafaudages et plus encore.</p>
                         <a href="#contact" class="btn">En savoir plus</a>
                     </div>
@@ -1746,7 +1733,7 @@
             </div>
             
             <div class="formations-grid">
-                <!-- Pack Complet (NOUVEAU) -->
+                <!-- Pack Complet -->
                 <div class="formation-card pack-formation animate-text" style="animation-delay: 0.2s">
                     <div class="pack-badge">PACK COMPLET</div>
                     <div class="formation-header">
@@ -1778,8 +1765,8 @@
                 <div class="formation-card animate-text" style="animation-delay: 0.3s">
                     <div class="formation-header">
                         <h3>Formation AutoCAD</h3>
-                        <div class="formation-duration">1 MOIS</div>
                         <div class="formation-price">35.000F</div>
+                        <div style="font-size: 0.9rem; margin-top: 5px;">Durée: 1 mois</div>
                     </div>
                     <div class="formation-content">
                         <ul class="formation-list">
@@ -1800,8 +1787,8 @@
                 <div class="formation-card animate-text" style="animation-delay: 0.4s">
                     <div class="formation-header">
                         <h3>Formation ArchiCAD</h3>
-                        <div class="formation-duration">1 MOIS</div>
                         <div class="formation-price">35.000F</div>
+                        <div style="font-size: 0.9rem; margin-top: 5px;">Durée: 1 mois</div>
                     </div>
                     <div class="formation-content">
                         <ul class="formation-list">
@@ -1822,9 +1809,8 @@
                 <div class="formation-card animate-text" style="animation-delay: 0.5s">
                     <div class="formation-header">
                         <h3>Formation REVIT Architecture</h3>
-                        <div class="formation-duration">2 MOIS</div>
                         <div class="formation-price">70.000F</div>
-                        <div style="font-size: 0.9rem; margin-top: 5px;">Mensualité: 35.000F</div>
+                        <div style="font-size: 0.9rem; margin-top: 5px;">Durée: 2 mois</div>
                     </div>
                     <div class="formation-content">
                         <ul class="formation-list">
@@ -1845,8 +1831,8 @@
                 <div class="formation-card animate-text" style="animation-delay: 0.6s">
                     <div class="formation-header">
                         <h3>Formation Lumion</h3>
-                        <div class="formation-duration">1 MOIS</div>
                         <div class="formation-price">50.000F</div>
+                        <div style="font-size: 0.9rem; margin-top: 5px;">Durée: 1 mois</div>
                     </div>
                     <div class="formation-content">
                         <ul class="formation-list">
@@ -1867,9 +1853,8 @@
                 <div class="formation-card animate-text" style="animation-delay: 0.7s">
                     <div class="formation-header">
                         <h3>Formation RSA</h3>
-                        <div class="formation-duration">3 MOIS</div>
                         <div class="formation-price">150.000F</div>
-                        <div style="font-size: 0.9rem; margin-top: 5px;">Mensualité: 50.000F</div>
+                        <div style="font-size: 0.9rem; margin-top: 5px;">Durée: 3 mois</div>
                     </div>
                     <div class="formation-content">
                         <ul class="formation-list">
@@ -1890,9 +1875,8 @@
                 <div class="formation-card animate-text" style="animation-delay: 0.8s">
                     <div class="formation-header">
                         <h3>Formation D5 Render</h3>
-                        <div class="formation-duration">4 MOIS</div>
                         <div class="formation-price">100.000F</div>
-                        <div style="font-size: 0.9rem; margin-top: 5px;">Mensualité: 25.000F</div>
+                        <div style="font-size: 0.9rem; margin-top: 5px;">Durée: 4 mois</div>
                     </div>
                     <div class="formation-content">
                         <ul class="formation-list">
@@ -1913,9 +1897,8 @@
                 <div class="formation-card animate-text" style="animation-delay: 0.9s">
                     <div class="formation-header">
                         <h3>Formation Graitec</h3>
-                        <div class="formation-duration">3 MOIS</div>
                         <div class="formation-price">170.000F</div>
-                        <div style="font-size: 0.9rem; margin-top: 5px;">Mensualité: 56.500F</div>
+                        <div style="font-size: 0.9rem; margin-top: 5px;">Durée: 3 mois</div>
                     </div>
                     <div class="formation-content">
                         <ul class="formation-list">
@@ -2683,4 +2666,4 @@ Message envoyé depuis le site RASSOUL BTP
         });
     </script>
 </body>
-    </html>
+</html>
