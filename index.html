@@ -1408,6 +1408,7 @@
             margin-top: 30px;
             box-shadow: var(--shadow-lg);
             overflow-x: auto;
+            display: none;
         }
 
         #factures #preview .header {
@@ -1487,6 +1488,92 @@
 
         #factures #downloadPdf:hover {
             background-color: #28a745;
+        }
+
+        /* Style spécifique pour le PDF */
+        .pdf-template {
+            width: 210mm;
+            min-height: 297mm;
+            margin: 0 auto;
+            padding: 20mm;
+            background: white;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+            color: #000;
+        }
+
+        .pdf-template .header {
+            text-align: center;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #1a5f7a;
+            padding-bottom: 15px;
+        }
+
+        .pdf-template .header h1 {
+            font-size: 24px;
+            color: #1a5f7a;
+            margin-bottom: 10px;
+        }
+
+        .pdf-template .info {
+            font-size: 12px;
+            margin: 3px 0;
+            color: #666;
+        }
+
+        .pdf-template .invoice-details {
+            display: flex;
+            justify-content: space-between;
+            margin: 25px 0 35px 0;
+        }
+
+        .pdf-template .client,
+        .pdf-template .invoice-info {
+            width: 48%;
+        }
+
+        .pdf-template table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0 30px 0;
+        }
+
+        .pdf-template th {
+            background: #1a5f7a;
+            color: white;
+            padding: 10px;
+            text-align: left;
+            border: 1px solid #ddd;
+            font-size: 12px;
+        }
+
+        .pdf-template td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            font-size: 12px;
+        }
+
+        .pdf-template .total-section {
+            margin-left: auto;
+            width: 300px;
+            text-align: right;
+        }
+
+        .pdf-template .total-box {
+            margin-bottom: 10px;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 4px;
+        }
+
+        .pdf-template .terms {
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+            font-size: 11px;
+            color: #666;
+            line-height: 1.5;
+            text-align: center;
         }
 
         /* Responsive for Invoice Form */
@@ -3249,7 +3336,7 @@ Message envoyé depuis le site RASSOUL BTP
                 total: window.invoiceData.total
             };
 
-            // Générer le HTML de la facture
+            // Générer le HTML de la facture pour l'affichage
             let linesHTML = '';
             lines.forEach(line => {
                 linesHTML += `
@@ -3327,44 +3414,169 @@ Message envoyé depuis le site RASSOUL BTP
             // Scroll vers la preview
             preview.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
-            // Bouton de téléchargement PDF avec notification
+            // Bouton de téléchargement PDF
             const downloadBtn = document.getElementById('downloadPdf');
             if (downloadBtn) {
-                downloadBtn.addEventListener('click', () => {
-                    // Envoyer la notification par email
-                    sendInvoiceNotification(currentClientData, currentInvoiceData);
+                downloadBtn.addEventListener('click', generatePDF);
+            }
 
-                    // Générer le PDF après un court délai
+            // Fonction pour générer le PDF
+            function generatePDF() {
+                // Envoyer la notification par email
+                sendInvoiceNotification(currentClientData, currentInvoiceData);
+                
+                // Créer un conteneur spécial pour le PDF
+                const pdfContainer = document.createElement('div');
+                pdfContainer.className = 'pdf-template';
+                
+                // HTML optimisé pour le PDF
+                pdfContainer.innerHTML = `
+                    <div class="header">
+                        <h1>RASSOUL BTP</h1>
+                        <div class="info">RC : SN DKR 2022 B 40967</div>
+                        <div class="info">NINEA : 009871543</div>
+                        <div class="info">Siège social : Liberté 6 Extension – Dakar (Sénégal)</div>
+                        <div class="info">Adresse mail : momoseck867@gmail.com</div>
+                        <div class="info">Téléphone : +221 77 439 74 27</div>
+                    </div>
+
+                    <div class="invoice-details">
+                        <div class="client">
+                            <strong>Facturé à :</strong><br>
+                            ${currentClientData.name}<br>
+                            ${currentClientData.address.replace(/\n/g, '<br>')}<br>
+                            ${currentClientData.contact}<br>
+                            ${currentClientData.ninea ? 'NINEA: ' + currentClientData.ninea : ''}
+                        </div>
+                        <div class="invoice-info">
+                            <strong>Facture N° :</strong> ${invoiceNumber}<br>
+                            <strong>Date d'émission :</strong> ${emissionDate}<br>
+                            <strong>Date d'échéance :</strong> ${dueDate || '30 jours net'}<br>
+                            <div style="margin-top: 10px; padding: 8px; background: #f8f9fa; border-radius: 4px;">
+                                <strong style="color: #ff7e30;">FACTURE</strong>
+                            </div>
+                        </div>
+                    </div>
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Description</th>
+                                <th>Qté</th>
+                                <th>Prix unitaire HT</th>
+                                <th>Total HT</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${lines.map(line => `
+                                <tr>
+                                    <td>${line.desc}</td>
+                                    <td style="text-align: center;">${line.qty}</td>
+                                    <td style="text-align: right;">${line.price} FCFA</td>
+                                    <td style="text-align: right;">${line.total}</td>
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
+
+                    <div class="total-section">
+                        <div class="total-box">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                                <span>Total HT :</span>
+                                <span>${window.invoiceData.subtotal.toLocaleString()} FCFA</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                                <span>TVA (18%) :</span>
+                                <span>${window.invoiceData.tva.toLocaleString()} FCFA</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 16px; color: #1a5f7a; padding-top: 10px; border-top: 2px solid #ddd;">
+                                <span>Total TTC :</span>
+                                <span>${window.invoiceData.total.toLocaleString()} FCFA</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="terms">
+                        <div style="text-align: center; margin-bottom: 15px;">
+                            <strong>Conditions de paiement :</strong> 30 jours net à réception de facture.
+                        </div>
+                        <div style="text-align: center; margin-bottom: 15px;">
+                            <strong>Modalités de paiement :</strong><br>
+                            • Virement bancaire : [Coordonnées bancaires à compléter]<br>
+                            • Mobile Money : +221 77 439 74 27
+                        </div>
+                        <div style="text-align: center;">
+                            <strong>Merci pour votre confiance !</strong><br>
+                            La lumière dans la construction
+                        </div>
+                    </div>
+
+                    <div style="position: absolute; bottom: 20mm; left: 0; right: 0; text-align: center; font-size: 10px; color: #999;">
+                        Page 1/1 - ${invoiceNumber} - Émise le ${emissionDate}
+                    </div>
+                `;
+                
+                // Ajouter temporairement au DOM
+                pdfContainer.style.position = 'absolute';
+                pdfContainer.style.left = '-9999px';
+                pdfContainer.style.top = '0';
+                document.body.appendChild(pdfContainer);
+                
+                // Options pour le PDF
+                const opt = {
+                    margin: [10, 10, 10, 10],
+                    filename: `${invoiceNumber}.pdf`,
+                    image: { 
+                        type: 'jpeg', 
+                        quality: 0.98 
+                    },
+                    html2canvas: { 
+                        scale: 2,
+                        useCORS: true,
+                        logging: false,
+                        backgroundColor: '#ffffff',
+                        width: pdfContainer.scrollWidth,
+                        windowWidth: pdfContainer.scrollWidth
+                    },
+                    jsPDF: { 
+                        unit: 'mm', 
+                        format: 'a4', 
+                        orientation: 'portrait',
+                        compress: true
+                    }
+                };
+
+                // Générer le PDF
+                html2pdf().set(opt).from(pdfContainer).save().then(() => {
+                    console.log('PDF généré avec succès');
+                    // Retirer l'élément temporaire
+                    document.body.removeChild(pdfContainer);
+                    
+                    // Afficher un message de confirmation
+                    const successMsg = document.createElement('div');
+                    successMsg.className = 'success-message show';
+                    successMsg.innerHTML = `
+                        <i class="fas fa-check-circle"></i>
+                        <div>
+                            <strong>PDF téléchargé !</strong>
+                            <p>La facture a été générée avec succès.</p>
+                        </div>
+                    `;
+                    document.body.appendChild(successMsg);
+                    
                     setTimeout(() => {
-                        const element = document.getElementById('preview');
-
-                        // Options pour le PDF
-                        const opt = {
-                            margin: 0.5,
-                            filename: `${invoiceNumber}.pdf`,
-                            image: { type: 'jpeg', quality: 0.98 },
-                            html2canvas: { 
-                                scale: 2,
-                                useCORS: true,
-                                logging: false,
-                                width: element.scrollWidth,
-                                height: element.scrollHeight
-                            },
-                            jsPDF: { 
-                                unit: 'in', 
-                                format: 'a4', 
-                                orientation: 'portrait' 
-                            }
-                        };
-
-                        // Générer le PDF
-                        html2pdf().set(opt).from(element).save().then(() => {
-                            console.log('PDF généré avec succès');
-                        }).catch(err => {
-                            console.error('Erreur lors de la génération du PDF:', err);
-                            alert('Erreur lors de la génération du PDF. Veuillez réessayer.');
-                        });
-                    }, 1000);
+                        successMsg.classList.remove('show');
+                        setTimeout(() => {
+                            document.body.removeChild(successMsg);
+                        }, 500);
+                    }, 3000);
+                }).catch(err => {
+                    console.error('Erreur lors de la génération du PDF:', err);
+                    alert('Erreur lors de la génération du PDF. Veuillez réessayer.');
+                    // Retirer l'élément temporaire même en cas d'erreur
+                    if (pdfContainer.parentNode) {
+                        document.body.removeChild(pdfContainer);
+                    }
                 });
             }
         });
