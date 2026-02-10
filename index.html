@@ -9,32 +9,42 @@
   <!-- Bibliothèque html2pdf.js via CDN pour générer le PDF -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
   <script>
-    // Fonction pour afficher les informations de la facture
+    // Fonction pour envoyer une notification par email via mailto
     function sendInvoiceNotification(clientData, invoiceData) {
-      // Afficher les informations dans la console pour que vous puissiez les voir
-      console.log('=== NOUVELLE FACTURE GÉNÉRÉE ===');
-      console.log('Informations client:');
-      console.log('Nom:', clientData.name);
-      console.log('Adresse:', clientData.address);
-      console.log('Contact:', clientData.contact);
-      console.log('NINEA:', clientData.ninea);
-      console.log('');
-      console.log('Informations facture:');
-      console.log('Numéro:', invoiceData.invoiceNumber);
-      console.log('Date d\'émission:', invoiceData.emissionDate);
-      console.log('Date d\'échéance:', invoiceData.dueDate);
-      console.log('Sous-total:', invoiceData.subtotal.toLocaleString() + ' FCFA');
-      console.log('TVA (18%):', invoiceData.tva.toLocaleString() + ' FCFA');
-      console.log('Total TTC:', invoiceData.total.toLocaleString() + ' FCFA');
-      console.log('');
-      console.log('Lignes de prestation:');
+      // Préparer le sujet et le corps de l'email
+      const subject = `Nouvelle facture générée - ${invoiceData.invoiceNumber}`;
+      let body = `Bonjour,\n\nUne nouvelle facture a été générée sur le site RASSOUL BTP.\n\n`;
+      body += `=== INFORMATIONS CLIENT ===\n`;
+      body += `Nom: ${clientData.name}\n`;
+      body += `Adresse: ${clientData.address}\n`;
+      body += `Contact: ${clientData.contact}\n`;
+      body += `NINEA: ${clientData.ninea}\n\n`;
+      body += `=== INFORMATIONS FACTURE ===\n`;
+      body += `Numéro: ${invoiceData.invoiceNumber}\n`;
+      body += `Date d'émission: ${invoiceData.emissionDate}\n`;
+      body += `Date d'échéance: ${invoiceData.dueDate}\n`;
+      body += `Sous-total: ${invoiceData.subtotal.toLocaleString()} FCFA\n`;
+      body += `TVA (18%): ${invoiceData.tva.toLocaleString()} FCFA\n`;
+      body += `Total TTC: ${invoiceData.total.toLocaleString()} FCFA\n\n`;
+      body += `=== LIGNES DE PRESTATION ===\n`;
       invoiceData.lines.forEach((line, index) => {
-        console.log(`${index + 1}. ${line.desc}: ${line.qty} x ${line.price} FCFA = ${line.total}`);
+        body += `${index + 1}. ${line.desc}: ${line.qty} x ${line.price} FCFA = ${line.total}\n`;
       });
-      console.log('================================');
+      body += `\n================================\n`;
+      body += `Message envoyé automatiquement depuis le site RASSOUL BTP\n`;
+      body += `Téléphone: +221 77 439 74 27\n`;
+      body += `Email: momoseck867@gmail.com\n`;
 
-      // Afficher aussi une alerte pour confirmation
-      alert(`Facture ${invoiceData.invoiceNumber} générée avec succès!\n\nVérifiez la console (F12) pour voir tous les détails.`);
+      // Encoder pour l'URL mailto
+      const encodedSubject = encodeURIComponent(subject);
+      const encodedBody = encodeURIComponent(body);
+      const mailtoUrl = `mailto:momoseck867@gmail.com?subject=${encodedSubject}&body=${encodedBody}`;
+
+      // Ouvrir le client email
+      window.location.href = mailtoUrl;
+
+      // Afficher une confirmation
+      alert(`Facture ${invoiceData.invoiceNumber} générée avec succès!\n\nVotre client email va s'ouvrir avec les détails de la facture.`);
     }
   </script>
   <style>
