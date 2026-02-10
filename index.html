@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>RASSOUL BTP - La lumière dans la construction</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Open+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -76,6 +76,8 @@
 
         html {
             scroll-behavior: smooth;
+            -webkit-text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%;
         }
 
         body {
@@ -84,6 +86,8 @@
             color: var(--dark);
             background-color: var(--white);
             overflow-x: hidden;
+            width: 100%;
+            min-height: 100vh;
         }
 
         h1, h2, h3, h4, h5 {
@@ -95,12 +99,12 @@
         }
 
         h1 {
-            font-size: 2.8rem;
+            font-size: clamp(1.8rem, 5vw, 2.8rem);
             font-weight: 800;
         }
 
         h2 {
-            font-size: 2.2rem;
+            font-size: clamp(1.5rem, 4vw, 2.2rem);
             text-align: center;
             margin-bottom: 2.5rem;
             position: relative;
@@ -119,7 +123,7 @@
         }
 
         h3 {
-            font-size: 1.5rem;
+            font-size: clamp(1.2rem, 3vw, 1.5rem);
         }
 
         p {
@@ -140,16 +144,16 @@
             width: 100%;
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 15px;
         }
 
         .section-padding {
-            padding: 100px 0;
+            padding: 60px 0;
         }
 
         .btn {
             display: inline-block;
-            padding: 14px 32px;
+            padding: 12px 24px;
             background-color: var(--secondary);
             color: var(--white);
             border: none;
@@ -157,7 +161,7 @@
             font-weight: 700;
             cursor: pointer;
             transition: var(--transition);
-            font-size: 1rem;
+            font-size: 0.95rem;
             text-transform: uppercase;
             letter-spacing: 1px;
             position: relative;
@@ -207,7 +211,7 @@
 
         .section-header {
             text-align: center;
-            margin-bottom: 4rem;
+            margin-bottom: 3rem;
         }
 
         .section-title {
@@ -255,40 +259,41 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 0;
+            padding: 15px 0;
             transition: var(--transition);
         }
 
         .header-scrolled .navbar {
-            padding: 10px 0;
+            padding: 8px 0;
         }
 
         .logo {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 10px;
         }
 
         .logo-container {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 10px;
         }
 
         .logo-img {
-            height: 80px;
-            width: 80px;
+            height: 60px;
+            width: 60px;
             background: linear-gradient(135deg, var(--primary), var(--primary-dark));
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
             font-weight: 900;
-            font-size: 2rem;
-            border-radius: 12px;
+            font-size: 1.5rem;
+            border-radius: 10px;
             border: 3px solid var(--secondary);
             box-shadow: var(--shadow);
             animation: pulse 2s infinite;
+            flex-shrink: 0;
         }
 
         .logo-text {
@@ -300,39 +305,40 @@
         }
 
         .logo-main {
-            font-size: 1.8rem;
+            font-size: clamp(1rem, 3.5vw, 1.8rem);
             line-height: 1;
             font-weight: 800;
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
         }
 
         .logo-btp {
-            font-size: 2.2rem;
+            font-size: clamp(1.2rem, 4vw, 2.2rem);
             line-height: 1;
             color: var(--secondary);
             font-weight: 900;
-            margin-top: -5px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            margin-top: -2px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
         }
 
         .logo-slogan {
-            font-size: 0.9rem;
+            font-size: clamp(0.6rem, 2vw, 0.9rem);
             color: var(--gray);
             font-style: italic;
-            margin-top: 5px;
+            margin-top: 2px;
             line-height: 1.2;
         }
 
         .nav-links {
             display: flex;
-            gap: 30px;
+            gap: 20px;
         }
 
         .nav-link {
             font-weight: 600;
-            font-size: 1rem;
+            font-size: 0.9rem;
             position: relative;
             padding: 5px 0;
+            white-space: nowrap;
         }
 
         .nav-link:after {
@@ -355,10 +361,15 @@
             display: none;
             background: none;
             border: none;
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             color: var(--primary);
             cursor: pointer;
             transition: var(--transition);
+            z-index: 1001;
+            width: 40px;
+            height: 40px;
+            align-items: center;
+            justify-content: center;
         }
 
         .mobile-menu-btn:hover {
@@ -368,16 +379,19 @@
         /* Hero Section */
         .hero {
             height: 100vh;
+            max-height: 900px;
             background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
             background-size: cover;
             background-position: center;
-            background-attachment: fixed;
+            background-attachment: scroll;
             color: var(--white);
             display: flex;
             align-items: center;
             text-align: center;
             position: relative;
             overflow: hidden;
+            padding: 80px 0 40px;
+            min-height: 600px;
         }
 
         .hero:before {
@@ -394,23 +408,24 @@
         .hero-content {
             max-width: 900px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 15px;
             position: relative;
             z-index: 2;
+            width: 100%;
         }
 
         .hero h1 {
-            font-size: 3.8rem;
+            font-size: clamp(2rem, 6vw, 3.8rem);
             color: var(--white);
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
             animation: fadeInDown 1.2s ease;
             text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
         }
 
         .hero h2 {
-            font-size: 2.5rem;
+            font-size: clamp(1.3rem, 4vw, 2.5rem);
             color: var(--white);
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
             animation: fadeInUp 1.2s ease 0.3s both;
         }
 
@@ -419,67 +434,68 @@
         }
 
         .hero p {
-            font-size: 1.3rem;
-            margin-bottom: 2.5rem;
+            font-size: clamp(0.95rem, 2.5vw, 1.3rem);
+            margin-bottom: 2rem;
             opacity: 0.9;
             animation: fadeInUp 1.2s ease 0.6s both;
-            line-height: 1.8;
+            line-height: 1.6;
         }
 
         .hero-btns {
             display: flex;
-            gap: 20px;
+            gap: 15px;
             justify-content: center;
             animation: fadeInUp 1.2s ease 0.9s both;
+            flex-wrap: wrap;
         }
 
         /* About Section */
         .about-content {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
+            grid-template-columns: 1fr;
+            gap: 40px;
             align-items: center;
         }
 
         .about-text p {
-            margin-bottom: 1.8rem;
-            font-size: 1.1rem;
-            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            font-size: 1rem;
+            line-height: 1.6;
         }
 
         .about-stats {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 25px;
-            margin-top: 40px;
+            gap: 15px;
+            margin-top: 30px;
         }
 
         .stat-item {
             text-align: center;
-            padding: 30px 20px;
+            padding: 20px 10px;
             background-color: var(--white);
-            border-radius: 12px;
+            border-radius: 10px;
             box-shadow: var(--shadow);
             transition: var(--transition);
             border: 2px solid transparent;
         }
 
         .stat-item:hover {
-            transform: translateY(-10px);
+            transform: translateY(-5px);
             box-shadow: var(--shadow-lg);
             border-color: var(--secondary);
         }
 
         .stat-number {
-            font-size: 3rem;
+            font-size: clamp(1.8rem, 4vw, 3rem);
             font-weight: 800;
             color: var(--primary);
             display: block;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
 
         .stat-text {
-            font-size: 1rem;
+            font-size: 0.85rem;
             color: var(--gray);
             font-weight: 600;
         }
@@ -487,15 +503,16 @@
         .about-img-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-            border-radius: 12px;
+            gap: 15px;
+            border-radius: 10px;
             overflow: hidden;
             box-shadow: var(--shadow-lg);
+            order: -1;
         }
 
         .about-img-grid img {
             width: 100%;
-            height: 220px;
+            height: 180px;
             object-fit: cover;
             display: block;
             transition: var(--transition-slow);
@@ -514,13 +531,13 @@
 
         .services-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 35px;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
         }
 
         .service-card {
             background-color: var(--white);
-            border-radius: 12px;
+            border-radius: 10px;
             overflow: hidden;
             box-shadow: var(--shadow);
             transition: var(--transition);
@@ -528,46 +545,48 @@
         }
 
         .service-card:hover {
-            transform: translateY(-15px);
+            transform: translateY(-10px);
             box-shadow: var(--shadow-lg);
         }
 
         .service-icon {
-            height: 80px;
+            height: 70px;
             display: flex;
             align-items: center;
             justify-content: center;
             background-color: rgba(26, 95, 122, 0.1);
-            font-size: 2.5rem;
+            font-size: 2rem;
             color: var(--primary);
         }
 
         .service-content {
-            padding: 30px;
+            padding: 20px;
         }
 
         .service-content h3 {
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
+            font-size: 1.2rem;
         }
 
         .service-content p {
-            margin-bottom: 25px;
-            line-height: 1.7;
+            margin-bottom: 20px;
+            line-height: 1.6;
+            font-size: 0.95rem;
         }
 
         /* Formations Section */
         .formations-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 35px;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
         }
 
         .formation-card {
             background-color: var(--white);
-            border-radius: 12px;
+            border-radius: 10px;
             overflow: hidden;
             box-shadow: var(--shadow);
             transition: var(--transition);
@@ -576,44 +595,45 @@
         }
 
         .formation-card:hover {
-            transform: translateY(-15px);
+            transform: translateY(-10px);
             box-shadow: var(--shadow-lg);
         }
 
         .formation-header {
             background: linear-gradient(135deg, var(--primary), var(--primary-dark));
             color: var(--white);
-            padding: 25px;
+            padding: 20px;
             text-align: center;
         }
 
         .formation-header h3 {
             color: var(--white);
-            margin-bottom: 10px;
-            font-size: 1.6rem;
+            margin-bottom: 8px;
+            font-size: 1.3rem;
         }
 
         .formation-price {
-            font-size: 2rem;
+            font-size: clamp(1.5rem, 3vw, 2rem);
             font-weight: 800;
-            margin: 15px 0;
+            margin: 10px 0;
             color: var(--secondary);
             text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
         }
 
         .formation-content {
-            padding: 30px;
+            padding: 20px;
         }
 
         .formation-list {
-            margin-bottom: 25px;
+            margin-bottom: 20px;
         }
 
         .formation-list li {
-            margin-bottom: 12px;
+            margin-bottom: 10px;
             position: relative;
-            padding-left: 25px;
-            line-height: 1.6;
+            padding-left: 22px;
+            line-height: 1.5;
+            font-size: 0.9rem;
         }
 
         .formation-list li:before {
@@ -622,44 +642,39 @@
             left: 0;
             color: var(--success);
             font-weight: bold;
-            font-size: 1.2rem;
+            font-size: 1rem;
         }
 
         /* Nouveau style pour les packs de formation */
         .pack-formation {
             border-top: 5px solid #ff4081;
-            transform: scale(1.03);
         }
 
         .pack-formation .formation-header {
             background: linear-gradient(135deg, #9C27B0, #673AB7);
         }
 
-        .pack-formation:hover {
-            transform: translateY(-15px) scale(1.03);
-        }
-
         .pack-badge {
             position: absolute;
-            top: 15px;
-            right: -30px;
+            top: 12px;
+            right: -28px;
             background: linear-gradient(45deg, #FF4081, #E91E63);
             color: white;
-            padding: 8px 35px;
-            font-size: 0.8rem;
+            padding: 6px 30px;
+            font-size: 0.7rem;
             font-weight: 700;
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
             transform: rotate(45deg);
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
             z-index: 10;
         }
 
         .pack-access {
             background: linear-gradient(135deg, #4CAF50, #2E7D32);
             color: white;
-            padding: 10px 15px;
+            padding: 8px 12px;
             border-radius: 6px;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             margin-bottom: 15px;
             text-align: center;
             font-weight: 600;
@@ -673,20 +688,21 @@
         .realisations-filter {
             display: flex;
             justify-content: center;
-            gap: 15px;
-            margin-bottom: 40px;
+            gap: 10px;
+            margin-bottom: 30px;
             flex-wrap: wrap;
         }
 
         .filter-btn {
-            padding: 12px 25px;
+            padding: 10px 18px;
             background-color: var(--white);
             border: 2px solid var(--light-gray);
-            border-radius: 30px;
+            border-radius: 25px;
             cursor: pointer;
             transition: var(--transition);
             font-weight: 700;
-            font-size: 0.95rem;
+            font-size: 0.85rem;
+            white-space: nowrap;
         }
 
         .filter-btn.active, .filter-btn:hover {
@@ -699,18 +715,18 @@
 
         .realisations-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 35px;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
         }
 
         .realisation-card {
-            border-radius: 12px;
+            border-radius: 10px;
             overflow: hidden;
             box-shadow: var(--shadow);
             background-color: var(--white);
             transition: var(--transition);
             opacity: 0;
-            transform: translateY(30px);
+            transform: translateY(20px);
             animation: fadeInUp 0.8s ease forwards;
         }
 
@@ -720,12 +736,12 @@
         }
 
         .realisation-card:hover {
-            transform: translateY(-15px);
+            transform: translateY(-10px);
             box-shadow: var(--shadow-lg);
         }
 
         .realisation-img {
-            height: 250px;
+            height: 200px;
             overflow: hidden;
         }
 
@@ -737,22 +753,23 @@
         }
 
         .realisation-card:hover .realisation-img img {
-            transform: scale(1.15);
+            transform: scale(1.1);
         }
 
         .realisation-content {
-            padding: 25px;
+            padding: 20px;
         }
 
         .realisation-content h3 {
-            margin-bottom: 15px;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
         }
 
         /* Partners Section */
         .partners-slider {
             overflow: hidden;
             position: relative;
-            padding: 40px 0;
+            padding: 30px 0;
         }
 
         .partners-track {
@@ -761,28 +778,28 @@
         }
 
         .partner-item {
-            flex: 0 0 220px;
-            margin: 0 30px;
+            flex: 0 0 180px;
+            margin: 0 20px;
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
         .partner-logo {
-            padding: 25px;
+            padding: 20px;
             background: var(--white);
-            border-radius: 12px;
+            border-radius: 10px;
             font-weight: 800;
             color: var(--primary);
             box-shadow: var(--shadow);
             transition: var(--transition);
             width: 100%;
             text-align: center;
-            font-size: 1.2rem;
+            font-size: 1rem;
         }
 
         .partner-logo:hover {
-            transform: translateY(-10px);
+            transform: translateY(-8px);
             box-shadow: var(--shadow-lg);
             color: var(--secondary);
         }
@@ -818,38 +835,38 @@
 
         .contact-content {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
+            grid-template-columns: 1fr;
+            gap: 40px;
             position: relative;
             z-index: 2;
         }
 
         .contact-info h3 {
             color: var(--white);
-            margin-bottom: 30px;
-            font-size: 1.8rem;
+            margin-bottom: 25px;
+            font-size: 1.5rem;
         }
 
         .contact-item {
             display: flex;
             align-items: flex-start;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
             transition: var(--transition);
         }
 
         .contact-item:hover {
-            transform: translateX(10px);
+            transform: translateX(8px);
         }
 
         .contact-icon {
             background-color: rgba(255, 255, 255, 0.15);
-            width: 60px;
-            height: 60px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-right: 20px;
+            margin-right: 15px;
             flex-shrink: 0;
             transition: var(--transition);
         }
@@ -860,7 +877,7 @@
         }
 
         .contact-icon i {
-            font-size: 1.5rem;
+            font-size: 1.2rem;
             color: var(--secondary);
         }
 
@@ -869,13 +886,13 @@
         }
 
         .contact-details h4 {
-            font-size: 1.2rem;
-            margin-bottom: 8px;
+            font-size: 1.1rem;
+            margin-bottom: 5px;
             font-weight: 700;
         }
 
         .contact-form .form-group {
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             position: relative;
         }
 
@@ -883,7 +900,7 @@
         .contact-form textarea,
         .contact-form select {
             width: 100%;
-            padding: 18px;
+            padding: 15px;
             border: 2px solid rgba(255, 255, 255, 0.2);
             border-radius: 8px;
             background-color: rgba(255, 255, 255, 0.1);
@@ -910,14 +927,14 @@
         }
 
         .contact-form textarea {
-            height: 180px;
+            height: 150px;
             resize: vertical;
         }
 
         .contact-form .btn {
             width: 100%;
-            font-size: 1.1rem;
-            padding: 18px;
+            font-size: 1rem;
+            padding: 15px;
             margin-top: 10px;
         }
 
@@ -925,7 +942,7 @@
         footer {
             background-color: var(--dark);
             color: var(--light-gray);
-            padding: 80px 0 30px;
+            padding: 50px 0 20px;
             position: relative;
             overflow: hidden;
         }
@@ -942,23 +959,23 @@
 
         .footer-content {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 50px;
-            margin-bottom: 50px;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
         }
 
         .footer-col h3 {
             color: var(--white);
-            font-size: 1.4rem;
-            margin-bottom: 25px;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
             position: relative;
-            padding-bottom: 15px;
+            padding-bottom: 12px;
         }
 
         .footer-col h3:after {
             content: '';
             position: absolute;
-            width: 50px;
+            width: 40px;
             height: 3px;
             background-color: var(--secondary);
             bottom: 0;
@@ -966,18 +983,19 @@
         }
 
         .footer-links li {
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             transition: var(--transition);
         }
 
         .footer-links li:hover {
-            transform: translateX(10px);
+            transform: translateX(8px);
         }
 
         .footer-links a {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
+            font-size: 0.9rem;
         }
 
         .footer-links a:hover {
@@ -986,32 +1004,32 @@
 
         .social-links {
             display: flex;
-            gap: 15px;
-            margin-top: 25px;
+            gap: 10px;
+            margin-top: 20px;
         }
 
         .social-link {
-            width: 45px;
-            height: 45px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             background-color: rgba(255, 255, 255, 0.1);
             display: flex;
             align-items: center;
             justify-content: center;
             transition: var(--transition);
-            font-size: 1.2rem;
+            font-size: 1rem;
         }
 
         .social-link:hover {
             background-color: var(--secondary);
-            transform: translateY(-5px) rotate(10deg);
+            transform: translateY(-3px) rotate(10deg);
         }
 
         .footer-bottom {
             text-align: center;
-            padding-top: 30px;
+            padding-top: 25px;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
-            font-size: 0.95rem;
+            font-size: 0.85rem;
             opacity: 0.8;
         }
 
@@ -1023,11 +1041,11 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
+            background-color: rgba(0, 0, 0, 0.9);
             z-index: 2000;
             align-items: center;
             justify-content: center;
-            padding: 20px;
+            padding: 15px;
         }
 
         .modal.active {
@@ -1048,7 +1066,7 @@
         .modal-header {
             background: linear-gradient(135deg, var(--primary), var(--primary-dark));
             color: white;
-            padding: 25px;
+            padding: 20px;
             border-radius: 12px 12px 0 0;
             text-align: center;
             position: relative;
@@ -1056,30 +1074,32 @@
 
         .modal-header h3 {
             color: white;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
+            font-size: 1.3rem;
         }
 
         .modal-body {
-            padding: 30px;
+            padding: 25px;
         }
 
         .modal-body p {
-            margin-bottom: 20px;
-            line-height: 1.6;
+            margin-bottom: 15px;
+            line-height: 1.5;
+            font-size: 0.95rem;
         }
 
         .modal-close {
             position: absolute;
-            top: 15px;
-            right: 15px;
+            top: 10px;
+            right: 10px;
             background: none;
             border: none;
             color: white;
             font-size: 1.5rem;
             cursor: pointer;
             transition: var(--transition);
-            width: 40px;
-            height: 40px;
+            width: 35px;
+            height: 35px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -1094,14 +1114,14 @@
         .payment-options {
             display: flex;
             flex-direction: column;
-            gap: 15px;
-            margin-top: 20px;
+            gap: 12px;
+            margin-top: 15px;
         }
 
         .payment-option {
             display: flex;
             align-items: center;
-            padding: 15px;
+            padding: 12px;
             border: 2px solid var(--light-gray);
             border-radius: 8px;
             cursor: pointer;
@@ -1119,24 +1139,25 @@
         }
 
         .payment-icon {
-            width: 50px;
-            height: 50px;
+            width: 45px;
+            height: 45px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-right: 15px;
-            font-size: 1.8rem;
+            margin-right: 12px;
+            font-size: 1.5rem;
             color: var(--primary);
         }
 
         .payment-details h4 {
-            margin-bottom: 5px;
+            margin-bottom: 3px;
             color: var(--primary);
+            font-size: 1rem;
         }
 
         .payment-details p {
             margin-bottom: 0;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: var(--gray);
         }
 
@@ -1144,7 +1165,7 @@
         @keyframes fadeInDown {
             from {
                 opacity: 0;
-                transform: translateY(-50px);
+                transform: translateY(-30px);
             }
             to {
                 opacity: 1;
@@ -1155,7 +1176,7 @@
         @keyframes fadeInUp {
             from {
                 opacity: 0;
-                transform: translateY(50px);
+                transform: translateY(30px);
             }
             to {
                 opacity: 1;
@@ -1166,7 +1187,7 @@
         @keyframes fadeInLeft {
             from {
                 opacity: 0;
-                transform: translateX(-50px);
+                transform: translateX(-30px);
             }
             to {
                 opacity: 1;
@@ -1177,7 +1198,7 @@
         @keyframes fadeInRight {
             from {
                 opacity: 0;
-                transform: translateX(50px);
+                transform: translateX(30px);
             }
             to {
                 opacity: 1;
@@ -1190,7 +1211,7 @@
                 transform: translateX(0);
             }
             100% {
-                transform: translateX(calc(-220px * 8));
+                transform: translateX(calc(-180px * 8));
             }
         }
 
@@ -1208,7 +1229,7 @@
                 box-shadow: 0 0 0 0 rgba(255, 126, 48, 0.4);
             }
             70% {
-                box-shadow: 0 0 0 15px rgba(255, 126, 48, 0);
+                box-shadow: 0 0 0 10px rgba(255, 126, 48, 0);
             }
             100% {
                 box-shadow: 0 0 0 0 rgba(255, 126, 48, 0);
@@ -1229,202 +1250,7 @@
                 transform: translateY(0);
             }
             50% {
-                transform: translateY(-20px);
-            }
-        }
-
-        /* Responsive Styles */
-        @media (max-width: 1200px) {
-            .hero h1 {
-                font-size: 3.2rem;
-            }
-
-            .hero h2 {
-                font-size: 2.2rem;
-            }
-
-            .container {
-                padding: 0 15px;
-            }
-        }
-
-        @media (max-width: 992px) {
-            h1 {
-                font-size: 2.5rem;
-            }
-            
-            h2 {
-                font-size: 2rem;
-            }
-            
-            .about-content, .contact-content {
-                grid-template-columns: 1fr;
-            }
-            
-            .about-img {
-                order: -1;
-            }
-            
-            .logo-main {
-                font-size: 1.5rem;
-            }
-            
-            .logo-btp {
-                font-size: 1.8rem;
-            }
-            
-            .hero h1 {
-                font-size: 2.8rem;
-            }
-            
-            .hero h2 {
-                font-size: 2rem;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .navbar {
-                padding: 15px 0;
-            }
-            
-            .nav-links {
-                position: fixed;
-                top: 0;
-                left: -100%;
-                width: 280px;
-                height: 100vh;
-                background-color: var(--white);
-                flex-direction: column;
-                align-items: flex-start;
-                padding: 100px 40px 40px;
-                box-shadow: 0 5px 30px rgba(0, 0, 0, 0.1);
-                transition: var(--transition-slow);
-                z-index: 999;
-            }
-            
-            .nav-links.active {
-                left: 0;
-            }
-            
-            .mobile-menu-btn {
-                display: block;
-                z-index: 1000;
-            }
-            
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-            
-            .hero h2 {
-                font-size: 1.8rem;
-            }
-            
-            .hero p {
-                font-size: 1.1rem;
-            }
-            
-            .hero-btns {
-                flex-direction: column;
-                align-items: center;
-                gap: 15px;
-            }
-            
-            .about-stats {
-                grid-template-columns: 1fr;
-            }
-            
-            .logo-img {
-                height: 60px;
-                width: 60px;
-                font-size: 1.5rem;
-            }
-            
-            .logo-main {
-                font-size: 1.3rem;
-            }
-            
-            .logo-btp {
-                font-size: 1.5rem;
-            }
-            
-            .logo-slogan {
-                font-size: 0.8rem;
-            }
-            
-            .section-padding {
-                padding: 80px 0;
-            }
-            
-            .pack-badge {
-                font-size: 0.7rem;
-                padding: 6px 30px;
-                right: -28px;
-            }
-        }
-
-        @media (max-width: 576px) {
-            .section-padding {
-                padding: 60px 0;
-            }
-
-            .hero {
-                height: 90vh;
-            }
-
-            .hero h1 {
-                font-size: 2.2rem;
-            }
-
-            .hero h2 {
-                font-size: 1.6rem;
-            }
-
-            .realisations-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .formation-card, .service-card {
-                margin-bottom: 25px;
-            }
-            
-            .logo-container {
-                gap: 10px;
-            }
-            
-            .logo-img {
-                height: 50px;
-                width: 50px;
-                font-size: 1.2rem;
-            }
-            
-            .logo-text {
-                min-width: 150px;
-            }
-            
-            .logo-main {
-                font-size: 1.1rem;
-            }
-            
-            .logo-btp {
-                font-size: 1.3rem;
-            }
-            
-            .logo-slogan {
-                font-size: 0.7rem;
-            }
-            
-            .services-grid, .formations-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .pack-badge {
-                font-size: 0.6rem;
-                padding: 5px 25px;
-                right: -25px;
-            }
-
-            .modal-content {
-                margin: 10px;
+                transform: translateY(-10px);
             }
         }
 
@@ -1432,15 +1258,16 @@
         #factures .section {
             background-color: var(--white);
             border-radius: 12px;
-            padding: 40px;
+            padding: 25px;
             box-shadow: var(--shadow);
-            margin-bottom: 40px;
+            margin-bottom: 30px;
+            overflow-x: auto;
         }
 
         #factures h2 {
-            margin-bottom: 30px;
+            margin-bottom: 25px;
             color: var(--primary);
-            font-size: 2.2rem;
+            font-size: 1.5rem;
             text-align: center;
         }
 
@@ -1449,20 +1276,20 @@
             margin-bottom: 8px;
             font-weight: 600;
             color: var(--dark);
-            font-size: 1rem;
+            font-size: 0.95rem;
         }
 
         #factures input[type="text"],
         #factures input[type="date"],
         #factures textarea {
             width: 100%;
-            padding: 15px;
+            padding: 12px;
             border: 2px solid var(--light-gray);
             border-radius: 8px;
-            font-size: 1rem;
+            font-size: 0.95rem;
             font-family: 'Open Sans', sans-serif;
             transition: var(--transition);
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             background-color: var(--white);
         }
 
@@ -1482,25 +1309,28 @@
         #factures table {
             width: 100%;
             border-collapse: collapse;
-            margin: 30px 0;
+            margin: 20px 0;
             background-color: var(--white);
             border-radius: 8px;
             overflow: hidden;
             box-shadow: var(--shadow);
+            min-width: 600px;
         }
 
         #factures th,
         #factures td {
-            padding: 15px;
+            padding: 10px;
             text-align: left;
             border-bottom: 1px solid var(--light-gray);
+            white-space: nowrap;
         }
 
         #factures th {
             background-color: var(--primary);
             color: var(--white);
             font-weight: 700;
-            font-size: 1rem;
+            font-size: 0.9rem;
+            padding: 12px 8px;
         }
 
         #factures td {
@@ -1510,11 +1340,12 @@
         #factures input[type="text"],
         #factures input[type="number"] {
             width: 100%;
-            padding: 10px;
+            padding: 8px;
             border: 1px solid var(--light-gray);
             border-radius: 6px;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             transition: var(--transition);
+            min-width: 60px;
         }
 
         #factures input[type="text"]:focus,
@@ -1526,17 +1357,18 @@
         #factures .lineTotal {
             font-weight: 600;
             color: var(--primary);
+            min-width: 80px;
         }
 
         #factures button {
-            padding: 12px 24px;
+            padding: 10px 20px;
             background-color: var(--secondary);
             color: var(--white);
             border: none;
             border-radius: 8px;
             cursor: pointer;
             font-weight: 600;
-            font-size: 1rem;
+            font-size: 0.9rem;
             transition: var(--transition);
             margin: 5px;
         }
@@ -1549,7 +1381,7 @@
 
         #factures #addRow {
             background-color: var(--primary);
-            margin-top: 20px;
+            margin-top: 15px;
         }
 
         #factures #addRow:hover {
@@ -1559,8 +1391,9 @@
         #factures .removeRow {
             background-color: #dc3545;
             color: var(--white);
-            padding: 8px 16px;
-            font-size: 0.9rem;
+            padding: 6px 12px;
+            font-size: 0.85rem;
+            white-space: nowrap;
         }
 
         #factures .removeRow:hover {
@@ -1571,54 +1404,57 @@
             background-color: var(--white);
             border: 2px solid var(--light-gray);
             border-radius: 12px;
-            padding: 40px;
-            margin-top: 40px;
+            padding: 25px;
+            margin-top: 30px;
             box-shadow: var(--shadow-lg);
+            overflow-x: auto;
         }
 
         #factures #preview .header {
             text-align: center;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
             border-bottom: 2px solid var(--primary);
-            padding-bottom: 20px;
+            padding-bottom: 15px;
         }
 
         #factures #preview .header h1 {
             margin: 0;
-            font-size: 28px;
+            font-size: 1.5rem;
             color: var(--primary);
         }
 
         #factures #preview .info {
-            font-size: 14px;
-            margin: 5px 0;
+            font-size: 0.85rem;
+            margin: 4px 0;
             color: var(--gray);
         }
 
         #factures #preview .invoice-details {
             display: flex;
-            justify-content: space-between;
-            margin: 30px 0;
+            flex-direction: column;
             gap: 20px;
+            margin: 25px 0;
         }
 
         #factures #preview .client,
         #factures #preview .invoice-info {
-            flex: 1;
+            width: 100%;
         }
 
         #factures #preview table {
             width: 100%;
             border-collapse: collapse;
-            margin: 20px 0;
+            margin: 15px 0;
             box-shadow: none;
+            min-width: 500px;
         }
 
         #factures #preview th,
         #factures #preview td {
             border: 1px solid #000;
-            padding: 12px;
+            padding: 8px;
             text-align: left;
+            font-size: 0.9rem;
         }
 
         #factures #preview th {
@@ -1628,17 +1464,17 @@
 
         #factures #preview .total {
             text-align: right;
-            font-size: 18px;
+            font-size: 1rem;
             font-weight: bold;
-            margin-top: 30px;
-            padding: 20px;
+            margin-top: 20px;
+            padding: 15px;
             background-color: var(--light);
             border-radius: 8px;
         }
 
         #factures #preview .footer {
-            margin-top: 60px;
-            font-size: 12px;
+            margin-top: 40px;
+            font-size: 0.8rem;
             text-align: center;
             color: var(--gray);
         }
@@ -1646,6 +1482,7 @@
         #factures #downloadPdf {
             background-color: var(--success);
             margin-top: 20px;
+            width: 100%;
         }
 
         #factures #downloadPdf:hover {
@@ -1658,27 +1495,57 @@
                 padding: 20px;
             }
 
-            #factures .invoice-details {
-                flex-direction: column;
-            }
-
             #factures table {
-                font-size: 0.9rem;
+                font-size: 0.85rem;
             }
 
             #factures th,
             #factures td {
-                padding: 10px;
+                padding: 8px 6px;
+            }
+
+            #factures #preview table {
+                min-width: 400px;
+            }
+
+            #factures #preview .invoice-details {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 480px) {
+            #factures .section {
+                padding: 15px;
+            }
+
+            #factures h2 {
+                font-size: 1.3rem;
+            }
+
+            #factures table {
+                min-width: 350px;
+            }
+
+            #factures #preview {
+                padding: 15px;
+            }
+
+            #factures #preview table {
+                min-width: 300px;
+            }
+
+            #factures #preview .header h1 {
+                font-size: 1.3rem;
             }
         }
 
         /* Floating WhatsApp Button */
         .whatsapp-float {
             position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 70px;
-            height: 70px;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
             background: linear-gradient(135deg, #25d366, #128c7e);
             border-radius: 50%;
             display: flex;
@@ -1699,20 +1566,7 @@
 
         .whatsapp-float i {
             color: var(--white);
-            font-size: 32px;
-        }
-
-        @media (max-width: 768px) {
-            .whatsapp-float {
-                bottom: 20px;
-                right: 20px;
-                width: 60px;
-                height: 60px;
-            }
-
-            .whatsapp-float i {
-                font-size: 26px;
-            }
+            font-size: 28px;
         }
 
         /* Message de confirmation */
@@ -1722,15 +1576,16 @@
             right: 20px;
             background: var(--success);
             color: white;
-            padding: 20px;
+            padding: 15px;
             border-radius: 8px;
             box-shadow: var(--shadow-lg);
             z-index: 2000;
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 12px;
             transform: translateX(150%);
             transition: transform 0.5s ease;
+            max-width: 300px;
         }
 
         .success-message.show {
@@ -1738,13 +1593,13 @@
         }
 
         .success-message i {
-            font-size: 24px;
+            font-size: 20px;
         }
 
         /* Animation des textes */
         .animate-text {
             opacity: 0;
-            transform: translateY(30px);
+            transform: translateY(20px);
             transition: all 0.8s ease;
         }
 
@@ -1764,11 +1619,11 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
+            background-color: rgba(0, 0, 0, 0.7);
             z-index: 998;
             opacity: 0;
             visibility: hidden;
-            transition: var(--transition);
+            transition: var(--transition-slow);
         }
 
         .overlay.active {
@@ -1776,29 +1631,268 @@
             visibility: visible;
         }
 
-        /* Spotlight Effect for CTA Boxes */
-        .cta-box {
-            position: relative;
-            overflow: hidden;
+        /* Responsive Styles */
+        @media (max-width: 1200px) {
+            .container {
+                padding: 0 15px;
+            }
         }
 
-        .cta-box::before {
-            content: '';
-            position: absolute;
-            inset: -200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
-            background-position: 0% 0%;
-            animation: spotlight 15s infinite;
-            opacity: 0.25;
-            pointer-events: none;
+        @media (max-width: 992px) {
+            .section-padding {
+                padding: 50px 0;
+            }
+
+            .about-img-grid {
+                order: -1;
+            }
+
+            .hero {
+                background-attachment: scroll;
+            }
+
+            .about-stats {
+                grid-template-columns: repeat(3, 1fr);
+            }
         }
 
-        @keyframes spotlight {
-            0%, 10% { background-position: 0% 0%; }
-            10%, 30% { background-position: 100% 0%; }
-            30%, 50% { background-position: 100% 100%; }
-            50%, 70% { background-position: 0% 100%; }
-            70%, 100% { background-position: 0% 0%; }
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 12px 0;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 0;
+                left: -100%;
+                width: 280px;
+                height: 100vh;
+                background-color: var(--white);
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 100px 30px 40px;
+                box-shadow: 0 5px 30px rgba(0, 0, 0, 0.1);
+                transition: var(--transition-slow);
+                z-index: 999;
+                overflow-y: auto;
+            }
+
+            .nav-links.active {
+                left: 0;
+            }
+
+            .mobile-menu-btn {
+                display: flex;
+            }
+
+            .hero {
+                height: auto;
+                min-height: 80vh;
+                padding: 100px 0 40px;
+            }
+
+            .hero-btns {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .btn {
+                width: 100%;
+                text-align: center;
+            }
+
+            .about-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .services-grid,
+            .formations-grid,
+            .realisations-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .realisations-filter {
+                justify-content: flex-start;
+                overflow-x: auto;
+                padding-bottom: 10px;
+            }
+
+            .filter-btn {
+                flex-shrink: 0;
+            }
+
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 25px;
+            }
+
+            .pack-badge {
+                font-size: 0.6rem;
+                padding: 5px 25px;
+                right: -25px;
+                top: 10px;
+            }
+
+            .modal-content {
+                margin: 10px;
+            }
+
+            /* Correction du menu mobile */
+            body.menu-open {
+                overflow: hidden;
+            }
+
+            .nav-links {
+                padding-top: 120px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .section-padding {
+                padding: 40px 0;
+            }
+
+            .hero {
+                min-height: 70vh;
+                padding: 90px 0 30px;
+            }
+
+            .about-stats {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+
+            .about-img-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .about-img-grid img {
+                height: 200px;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .realisations-filter {
+                gap: 8px;
+            }
+
+            .filter-btn {
+                padding: 8px 15px;
+                font-size: 0.8rem;
+            }
+
+            .pack-badge {
+                font-size: 0.55rem;
+                padding: 4px 20px;
+                right: -22px;
+            }
+
+            .formation-price {
+                font-size: 1.8rem;
+            }
+
+            .logo-img {
+                height: 50px;
+                width: 50px;
+                font-size: 1.2rem;
+            }
+
+            .logo-main {
+                font-size: 1.1rem;
+            }
+
+            .logo-btp {
+                font-size: 1.3rem;
+            }
+
+            .logo-slogan {
+                font-size: 0.7rem;
+            }
+
+            .whatsapp-float {
+                width: 55px;
+                height: 55px;
+                bottom: 15px;
+                right: 15px;
+            }
+
+            .whatsapp-float i {
+                font-size: 24px;
+            }
+
+            .success-message {
+                top: 10px;
+                right: 10px;
+                left: 10px;
+                max-width: none;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .container {
+                padding: 0 10px;
+            }
+
+            .section-padding {
+                padding: 30px 0;
+            }
+
+            .logo-img {
+                height: 45px;
+                width: 45px;
+                font-size: 1.1rem;
+            }
+
+            .logo-main {
+                font-size: 1rem;
+            }
+
+            .logo-btp {
+                font-size: 1.1rem;
+            }
+
+            .hero {
+                padding: 80px 0 30px;
+            }
+
+            .pack-badge {
+                font-size: 0.5rem;
+                padding: 3px 18px;
+                right: -20px;
+            }
+        }
+
+        /* Correction du débordement sur mobile */
+        .table-responsive {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            margin: 20px -15px;
+            padding: 0 15px;
+        }
+
+        .table-responsive table {
+            margin: 0;
+            min-width: 600px;
+        }
+
+        /* Correction de l'affichage du PDF */
+        #factures #preview {
+            word-wrap: break-word;
+            word-break: break-word;
+        }
+
+        #factures #preview table {
+            table-layout: fixed;
+            width: 100%;
+        }
+
+        #factures #preview th,
+        #factures #preview td {
+            word-break: break-word;
+            white-space: normal;
         }
     </style>
 </head>
@@ -1863,33 +1957,33 @@
             </div>
             
             <div class="about-content">
+                <div class="about-img-grid">
+                    <img src="https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Session de formation AutoCAD" class="animate-text" style="animation-delay: 0.3s">
+                    <img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Conception architecturale" class="animate-text" style="animation-delay: 0.4s">
+                    <img src="https://images.unsplash.com/photo-1503387837-b154d5074bd2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Projet architectural" class="animate-text" style="animation-delay: 0.5s">
+                    <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Modélisation 3D architecturale" class="animate-text" style="animation-delay: 0.6s">
+                </div>
+                
                 <div class="about-text">
-                    <h3 class="animate-text" style="animation-delay: 0.3s">Notre expertise au service de vos projets</h3>
-                    <p class="animate-text" style="animation-delay: 0.4s"><strong>RASSOUL BTP</strong> est une entreprise spécialisée dans le domaine du Bâtiment et des Travaux Publics avec <strong>5 ans d'expérience</strong> dans le secteur. Avec une expertise solide et une équipe de professionnels qualifiés, nous réalisons des projets de construction, de rénovation, de béton armé et d'aménagement de haute qualité.</p>
-                    <p class="animate-text" style="animation-delay: 0.5s">Notre slogan <strong>"La lumière dans la construction"</strong> reflète notre engagement à éclairer chaque projet avec innovation, précision et expertise. Nous croyons en la puissance de la lumière pour révéler la beauté et la fonctionnalité des espaces que nous créons.</p>
-                    <p class="animate-text" style="animation-delay: 0.6s">En plus de nos services de construction, nous proposons des formations spécialisées aux <strong>logiciels de conception architecturale</strong> pour former la prochaine génération de professionnels du BTP.</p>
+                    <h3 class="animate-text" style="animation-delay: 0.7s">Notre expertise au service de vos projets</h3>
+                    <p class="animate-text" style="animation-delay: 0.8s"><strong>RASSOUL BTP</strong> est une entreprise spécialisée dans le domaine du Bâtiment et des Travaux Publics avec <strong>5 ans d'expérience</strong> dans le secteur. Avec une expertise solide et une équipe de professionnels qualifiés, nous réalisons des projets de construction, de rénovation, de béton armé et d'aménagement de haute qualité.</p>
+                    <p class="animate-text" style="animation-delay: 0.9s">Notre slogan <strong>"La lumière dans la construction"</strong> reflète notre engagement à éclairer chaque projet avec innovation, précision et expertise. Nous croyons en la puissance de la lumière pour révéler la beauté et la fonctionnalité des espaces que nous créons.</p>
+                    <p class="animate-text" style="animation-delay: 1s">En plus de nos services de construction, nous proposons des formations spécialisées aux <strong>logiciels de conception architecturale</strong> pour former la prochaine génération de professionnels du BTP.</p>
                     
                     <div class="about-stats">
-                        <div class="stat-item animate-text" style="animation-delay: 0.7s">
+                        <div class="stat-item animate-text" style="animation-delay: 1.1s">
                             <span class="stat-number" data-count="1500">0</span>
                             <span class="stat-text">Projets réalisés</span>
                         </div>
-                        <div class="stat-item animate-text" style="animation-delay: 0.8s">
+                        <div class="stat-item animate-text" style="animation-delay: 1.2s">
                             <span class="stat-number" data-count="570">0</span>
                             <span class="stat-text">Clients satisfaits</span>
                         </div>
-                        <div class="stat-item animate-text" style="animation-delay: 0.9s">
+                        <div class="stat-item animate-text" style="animation-delay: 1.3s">
                             <span class="stat-number" data-count="5">0</span>
                             <span class="stat-text">Années d'expérience</span>
                         </div>
                     </div>
-                </div>
-                
-                <div class="about-img-grid">
-                    <img src="https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Session de formation AutoCAD" class="animate-text" style="animation-delay: 0.5s">
-                    <img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Conception architecturale" class="animate-text" style="animation-delay: 0.6s">
-                    <img src="https://images.unsplash.com/photo-1503387837-b154d5074bd2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Projet architectural" class="animate-text" style="animation-delay: 0.7s">
-                    <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Modélisation 3D architecturale" class="animate-text" style="animation-delay: 0.8s">
                 </div>
             </div>
         </div>
@@ -2074,35 +2168,37 @@
 
                 <div class="section">
                     <h2>Lignes de prestation (ajouter autant que nécessaire)</h2>
-                    <table id="itemsTable">
-                        <thead>
-                            <tr>
-                                <th>Description</th>
-                                <th>Quantité</th>
-                                <th>Prix unitaire HT (FCFA)</th>
-                                <th>Total HT</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><input type="text" class="description" required></td>
-                                <td><input type="number" class="quantity" value="1" min="1" required></td>
-                                <td><input type="number" class="price" value="0" min="0" required></td>
-                                <td class="lineTotal">0</td>
-                                <td><button type="button" class="removeRow">Supprimer</button></td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div class="table-responsive">
+                        <table id="itemsTable">
+                            <thead>
+                                <tr>
+                                    <th>Description</th>
+                                    <th>Quantité</th>
+                                    <th>Prix unitaire HT (FCFA)</th>
+                                    <th>Total HT</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><input type="text" class="description" required placeholder="Description"></td>
+                                    <td><input type="number" class="quantity" value="1" min="1" required></td>
+                                    <td><input type="number" class="price" value="0" min="0" required placeholder="0"></td>
+                                    <td class="lineTotal">0</td>
+                                    <td><button type="button" class="removeRow">Supprimer</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                     <button type="button" id="addRow">Ajouter une ligne</button>
                 </div>
 
                 <div class="section" style="text-align: center;">
-                    <button type="submit">Générer la facture et prévisualiser</button>
+                    <button type="submit" class="btn" style="width: 100%; max-width: 300px;">Générer la facture</button>
                 </div>
             </form>
 
-            <div id="preview" style="display: none; max-width: 800px; margin: 40px auto; background: white; padding: 40px; border: 1px solid #ddd;">
+            <div id="preview" style="display: none;">
                 <!-- La facture générée sera insérée ici -->
             </div>
         </div>
@@ -2123,7 +2219,7 @@
                     <div class="formation-header">
                         <h3>Pack Complet Professionnel</h3>
                         <div class="formation-price">45.000F</div>
-                        <div style="font-size: 0.9rem; margin-top: 5px;">Accès immédiat après paiement</div>
+                        <div style="font-size: 0.85rem; margin-top: 5px;">Accès immédiat après paiement</div>
                     </div>
                     <div class="formation-content">
                         <div class="pack-access">
@@ -2139,7 +2235,7 @@
                             <li>Accès à vie au contenu</li>
                             <li>Mises à jour gratuites</li>
                         </ul>
-                        <button class="btn btn-primary acheter-pack" data-pack="pack-complet" data-prix="45000">
+                        <button class="btn btn-primary acheter-pack" data-pack="pack-complet" data-prix="45000" style="width: 100%;">
                             <i class="fas fa-shopping-cart"></i> Acheter le pack (45.000F)
                         </button>
                     </div>
@@ -2150,7 +2246,7 @@
                     <div class="formation-header">
                         <h3>Formation AutoCAD</h3>
                         <div class="formation-price">35.000F</div>
-                        <div style="font-size: 0.9rem; margin-top: 5px;">Durée: 1 mois</div>
+                        <div style="font-size: 0.85rem; margin-top: 5px;">Durée: 1 mois</div>
                     </div>
                     <div class="formation-content">
                         <ul class="formation-list">
@@ -2163,7 +2259,7 @@
                             <li>Création de page de garde</li>
                             <li>Installation du logiciel AutoCAD 2024 gratuite</li>
                         </ul>
-                        <a href="mailto:momoseck867@gmail.com?subject=Inscription Formation AutoCAD&body=Bonjour, je souhaite m'inscrire à la formation AutoCAD. Merci de me contacter pour les modalités." class="btn btn-primary">S'inscrire à la formation</a>
+                        <a href="mailto:momoseck867@gmail.com?subject=Inscription Formation AutoCAD&body=Bonjour, je souhaite m'inscrire à la formation AutoCAD. Merci de me contacter pour les modalités." class="btn btn-primary" style="width: 100%;">S'inscrire à la formation</a>
                     </div>
                 </div>
                 
@@ -2172,7 +2268,7 @@
                     <div class="formation-header">
                         <h3>Formation ArchiCAD</h3>
                         <div class="formation-price">35.000F</div>
-                        <div style="font-size: 0.9rem; margin-top: 5px;">Durée: 1 mois</div>
+                        <div style="font-size: 0.85rem; margin-top: 5px;">Durée: 1 mois</div>
                     </div>
                     <div class="formation-content">
                         <ul class="formation-list">
@@ -2185,7 +2281,7 @@
                             <li>Création de page de garde</li>
                             <li>Installation ArchiCAD 28 gratuite</li>
                         </ul>
-                        <a href="mailto:momoseck867@gmail.com?subject=Inscription Formation ArchiCAD&body=Bonjour, je souhaite m'inscrire à la formation ArchiCAD. Merci de me contacter pour les modalités." class="btn btn-primary">S'inscrire à la formation</a>
+                        <a href="mailto:momoseck867@gmail.com?subject=Inscription Formation ArchiCAD&body=Bonjour, je souhaite m'inscrire à la formation ArchiCAD. Merci de me contacter pour les modalités." class="btn btn-primary" style="width: 100%;">S'inscrire à la formation</a>
                     </div>
                 </div>
                 
@@ -2194,7 +2290,7 @@
                     <div class="formation-header">
                         <h3>Formation REVIT Architecture</h3>
                         <div class="formation-price">70.000F</div>
-                        <div style="font-size: 0.9rem; margin-top: 5px;">Durée: 2 mois</div>
+                        <div style="font-size: 0.85rem; margin-top: 5px;">Durée: 2 mois</div>
                     </div>
                     <div class="formation-content">
                         <ul class="formation-list">
@@ -2207,7 +2303,7 @@
                             <li>Rendu et animation</li>
                             <li>Installation du logiciel REVIT gratuite</li>
                         </ul>
-                        <a href="mailto:momoseck867@gmail.com?subject=Inscription Formation REVIT&body=Bonjour, je souhaite m'inscrire à la formation REVIT. Merci de me contacter pour les modalités." class="btn btn-primary">S'inscrire à la formation</a>
+                        <a href="mailto:momoseck867@gmail.com?subject=Inscription Formation REVIT&body=Bonjour, je souhaite m'inscrire à la formation REVIT. Merci de me contacter pour les modalités." class="btn btn-primary" style="width: 100%;">S'inscrire à la formation</a>
                     </div>
                 </div>
                 
@@ -2216,7 +2312,7 @@
                     <div class="formation-header">
                         <h3>Formation Lumion</h3>
                         <div class="formation-price">50.000F</div>
-                        <div style="font-size: 0.9rem; margin-top: 5px;">Durée: 1 mois</div>
+                        <div style="font-size: 0.85rem; margin-top: 5px;">Durée: 1 mois</div>
                     </div>
                     <div class="formation-content">
                         <ul class="formation-list">
@@ -2229,7 +2325,7 @@
                             <li>Technique de prise de photo et de vidéo</li>
                             <li>Installation du logiciel Lumion 8-12,5 gratuite</li>
                         </ul>
-                        <a href="mailto:momoseck867@gmail.com?subject=Inscription Formation Lumion&body=Bonjour, je souhaite m'inscrire à la formation Lumion. Merci de me contacter pour les modalités." class="btn btn-primary">S'inscrire à la formation</a>
+                        <a href="mailto:momoseck867@gmail.com?subject=Inscription Formation Lumion&body=Bonjour, je souhaite m'inscrire à la formation Lumion. Merci de me contacter pour les modalités." class="btn btn-primary" style="width: 100%;">S'inscrire à la formation</a>
                     </div>
                 </div>
                 
@@ -2238,7 +2334,7 @@
                     <div class="formation-header">
                         <h3>Formation RSA</h3>
                         <div class="formation-price">150.000F</div>
-                        <div style="font-size: 0.9rem; margin-top: 5px;">Durée: 3 mois</div>
+                        <div style="font-size: 0.85rem; margin-top: 5px;">Durée: 3 mois</div>
                     </div>
                     <div class="formation-content">
                         <ul class="formation-list">
@@ -2251,7 +2347,7 @@
                             <li>Intégration avec AutoCAD et Revit</li>
                             <li>Installation du logiciel RSA gratuite</li>
                         </ul>
-                        <a href="mailto:momoseck867@gmail.com?subject=Inscription Formation RSA&body=Bonjour, je souhaite m'inscrire à la formation RSA. Merci de me contacter pour les modalités." class="btn btn-primary">S'inscrire à la formation</a>
+                        <a href="mailto:momoseck867@gmail.com?subject=Inscription Formation RSA&body=Bonjour, je souhaite m'inscrire à la formation RSA. Merci de me contacter pour les modalités." class="btn btn-primary" style="width: 100%;">S'inscrire à la formation</a>
                     </div>
                 </div>
                 
@@ -2260,7 +2356,7 @@
                     <div class="formation-header">
                         <h3>Formation D5 Render</h3>
                         <div class="formation-price">100.000F</div>
-                        <div style="font-size: 0.9rem; margin-top: 5px;">Durée: 4 mois</div>
+                        <div style="font-size: 0.85rem; margin-top: 5px;">Durée: 4 mois</div>
                     </div>
                     <div class="formation-content">
                         <ul class="formation-list">
@@ -2273,7 +2369,7 @@
                             <li>Export de vidéos et images HD</li>
                             <li>Installation de D5 Render gratuite</li>
                         </ul>
-                        <a href="mailto:momoseck867@gmail.com?subject=Inscription Formation D5 Render&body=Bonjour, je souhaite m'inscrire à la formation D5 Render. Merci de me contacter pour les modalités." class="btn btn-primary">S'inscrire à la formation</a>
+                        <a href="mailto:momoseck867@gmail.com?subject=Inscription Formation D5 Render&body=Bonjour, je souhaite m'inscrire à la formation D5 Render. Merci de me contacter pour les modalités." class="btn btn-primary" style="width: 100%;">S'inscrire à la formation</a>
                     </div>
                 </div>
                 
@@ -2282,7 +2378,7 @@
                     <div class="formation-header">
                         <h3>Formation Graitec</h3>
                         <div class="formation-price">170.000F</div>
-                        <div style="font-size: 0.9rem; margin-top: 5px;">Durée: 3 mois</div>
+                        <div style="font-size: 0.85rem; margin-top: 5px;">Durée: 3 mois</div>
                     </div>
                     <div class="formation-content">
                         <ul class="formation-list">
@@ -2295,7 +2391,7 @@
                             <li>Export et échange de données</li>
                             <li>Installation de Graitec gratuite</li>
                         </ul>
-                        <a href="mailto:momoseck867@gmail.com?subject=Inscription Formation Graitec&body=Bonjour, je souhaite m'inscrire à la formation Graitec. Merci de me contacter pour les modalités." class="btn btn-primary">S'inscrire à la formation</a>
+                        <a href="mailto:momoseck867@gmail.com?subject=Inscription Formation Graitec&body=Bonjour, je souhaite m'inscrire à la formation Graitec. Merci de me contacter pour les modalités." class="btn btn-primary" style="width: 100%;">S'inscrire à la formation</a>
                     </div>
                 </div>
             </div>
@@ -2704,6 +2800,7 @@
         mobileMenuBtn.addEventListener('click', () => {
             navLinks.classList.toggle('active');
             overlay.classList.toggle('active');
+            document.body.classList.toggle('menu-open');
             mobileMenuBtn.innerHTML = navLinks.classList.contains('active') 
                 ? '<i class="fas fa-times"></i>' 
                 : '<i class="fas fa-bars"></i>';
@@ -2712,6 +2809,7 @@
         overlay.addEventListener('click', () => {
             navLinks.classList.remove('active');
             overlay.classList.remove('active');
+            document.body.classList.remove('menu-open');
             mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
         });
         
@@ -2720,6 +2818,7 @@
             link.addEventListener('click', () => {
                 navLinks.classList.remove('active');
                 overlay.classList.remove('active');
+                document.body.classList.remove('menu-open');
                 mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
             });
         });
@@ -3055,9 +3154,9 @@ Message envoyé depuis le site RASSOUL BTP
             const table = document.getElementById('itemsTable').querySelector('tbody');
             const row = table.insertRow();
             row.innerHTML = `
-                <td><input type="text" class="description" required></td>
+                <td><input type="text" class="description" required placeholder="Description"></td>
                 <td><input type="number" class="quantity" value="1" min="1" required></td>
-                <td><input type="number" class="price" value="0" min="0" required></td>
+                <td><input type="number" class="price" value="0" min="0" required placeholder="0"></td>
                 <td class="lineTotal">0</td>
                 <td><button type="button" class="removeRow">Supprimer</button></td>
             `;
@@ -3187,19 +3286,21 @@ Message envoyé depuis le site RASSOUL BTP
                     </div>
                 </div>
 
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Description</th>
-                            <th>Quantité</th>
-                            <th>Prix unitaire HT</th>
-                            <th>Total HT</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        ${linesHTML}
-                    </tbody>
-                </table>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Description</th>
+                                <th>Quantité</th>
+                                <th>Prix unitaire HT</th>
+                                <th>Total HT</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${linesHTML}
+                        </tbody>
+                    </table>
+                </div>
 
                 <div class="total">
                     Total HT : ${window.invoiceData.subtotal.toLocaleString()} FCFA<br>
@@ -3212,100 +3313,73 @@ Message envoyé depuis le site RASSOUL BTP
                     Paiement par virement bancaire : [insérez vos coordonnées bancaires].<br>
                     Merci pour votre confiance !
                 </div>
+                <div style="text-align: center; margin-top: 30px;">
+                    <button id="downloadPdf" class="btn" style="background-color: var(--success);">
+                        Télécharger la facture en PDF
+                    </button>
+                </div>
             `;
 
             const preview = document.getElementById('preview');
-            preview.innerHTML = previewHTML + '<div style="text-align:center; margin-top:40px;"><button id="downloadPdf">Télécharger la facture en PDF</button></div>';
+            preview.innerHTML = previewHTML;
             preview.style.display = 'block';
 
-            // Bouton de téléchargement PDF avec notification
-            document.getElementById('downloadPdf').addEventListener('click', () => {
-                // Envoyer la notification par email
-                sendInvoiceNotification(currentClientData, currentInvoiceData);
-
-                // Attendre que le contenu soit rendu avant de générer le PDF
-                setTimeout(() => {
-                    const element = document.getElementById('preview');
-
-                    // Créer un élément temporaire pour le PDF avec les styles inline
-                    const tempElement = document.createElement('div');
-                    tempElement.innerHTML = `
-                        <div style="font-family: Arial, sans-serif; margin: 20px; background: white; padding: 40px; border: 1px solid #ddd; max-width: 800px;">
-                            <div style="text-align: center; margin-bottom: 40px; border-bottom: 2px solid #1a5f7a; padding-bottom: 20px;">
-                                <h1 style="margin: 0; font-size: 28px; color: #1a5f7a;">RASSOUL BTP</h1>
-                                <div style="font-size: 14px; margin: 5px 0; color: #6c757d;">RC : SN DKR 2022 B 40967</div>
-                                <div style="font-size: 14px; margin: 5px 0; color: #6c757d;">NINEA : 009871543</div>
-                                <div style="font-size: 14px; margin: 5px 0; color: #6c757d;">Siège social : Liberté 6 Extension – Dakar (Sénégal)</div>
-                                <div style="font-size: 14px; margin: 5px 0; color: #6c757d;">Adresse mail : momoseck867@gmail.com</div>
-                                <div style="font-size: 14px; margin: 5px 0; color: #6c757d;">Téléphone : +221 77 439 74 27</div>
-                            </div>
-
-                            <div style="display: flex; justify-content: space-between; margin: 30px 0; gap: 20px;">
-                                <div style="flex: 1;">
-                                    <strong>Facturé à :</strong><br>
-                                    ${currentClientData.name}<br>
-                                    ${currentClientData.address.replace(/\n/g, '<br>')}<br>
-                                    ${currentClientData.contact}<br>
-                                    ${currentClientData.ninea}
-                                </div>
-                                <div style="flex: 1;">
-                                    <strong>Facture N° :</strong> ${invoiceNumber}<br>
-                                    <strong>Date d'émission :</strong> ${emissionDate}<br>
-                                    <strong>Date d'échéance :</strong> ${dueDate || '30 jours net'}
-                                </div>
-                            </div>
-
-                            <table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
-                                <thead>
-                                    <tr style="background: #f0f0f0;">
-                                        <th style="border: 1px solid #000; padding: 12px; text-align: left;">Description</th>
-                                        <th style="border: 1px solid #000; padding: 12px; text-align: left;">Quantité</th>
-                                        <th style="border: 1px solid #000; padding: 12px; text-align: left;">Prix unitaire HT</th>
-                                        <th style="border: 1px solid #000; padding: 12px; text-align: left;">Total HT</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    ${linesHTML}
-                                </tbody>
-                            </table>
-
-                            <div style="text-align: right; font-size: 18px; font-weight: bold; margin-top: 30px; padding: 20px; background-color: #f8f9fa; border-radius: 8px;">
-                                Total HT : ${window.invoiceData.subtotal.toLocaleString()} FCFA<br>
-                                TVA (18 %) : ${window.invoiceData.tva.toLocaleString()} FCFA<br>
-                                <strong>Total TTC : ${window.invoiceData.total.toLocaleString()} FCFA</strong>
-                            </div>
-
-                            <div style="margin-top: 60px; font-size: 12px; text-align: center; color: #6c757d;">
-                                Conditions de paiement : 30 jours net à réception de facture.<br>
-                                Paiement par virement bancaire : [insérez vos coordonnées bancaires].<br>
-                                Merci pour votre confiance !
-                            </div>
-                        </div>
-                    `;
-
-                    tempElement.style.position = 'absolute';
-                    tempElement.style.left = '-9999px';
-                    tempElement.style.top = '-9999px';
-                    document.body.appendChild(tempElement);
-
-                    // Télécharger le PDF avec des options simples
-                    const opt = {
-                        margin: 0.5,
-                        filename: `${invoiceNumber}.pdf`,
-                        image: { type: 'jpeg', quality: 0.98 },
-                        html2canvas: { scale: 2 },
-                        jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
-                    };
-
-                    html2pdf().set(opt).from(tempElement).save().then(() => {
-                        document.body.removeChild(tempElement);
-                    });
-                }, 500);
-            });
-
             // Scroll vers la preview
-            preview.scrollIntoView({ behavior: 'smooth' });
+            preview.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+            // Bouton de téléchargement PDF avec notification
+            const downloadBtn = document.getElementById('downloadPdf');
+            if (downloadBtn) {
+                downloadBtn.addEventListener('click', () => {
+                    // Envoyer la notification par email
+                    sendInvoiceNotification(currentClientData, currentInvoiceData);
+
+                    // Générer le PDF après un court délai
+                    setTimeout(() => {
+                        const element = document.getElementById('preview');
+
+                        // Options pour le PDF
+                        const opt = {
+                            margin: 0.5,
+                            filename: `${invoiceNumber}.pdf`,
+                            image: { type: 'jpeg', quality: 0.98 },
+                            html2canvas: { 
+                                scale: 2,
+                                useCORS: true,
+                                logging: false,
+                                width: element.scrollWidth,
+                                height: element.scrollHeight
+                            },
+                            jsPDF: { 
+                                unit: 'in', 
+                                format: 'a4', 
+                                orientation: 'portrait' 
+                            }
+                        };
+
+                        // Générer le PDF
+                        html2pdf().set(opt).from(element).save().then(() => {
+                            console.log('PDF généré avec succès');
+                        }).catch(err => {
+                            console.error('Erreur lors de la génération du PDF:', err);
+                            alert('Erreur lors de la génération du PDF. Veuillez réessayer.');
+                        });
+                    }, 1000);
+                });
+            }
         });
+
+        // Calcul initial des totaux
+        calculateTotals();
+
+        // Correction pour les champs de date
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('invoiceDate').value = today;
+        
+        // Ajouter 30 jours pour la date d'échéance par défaut
+        const dueDate = new Date();
+        dueDate.setDate(dueDate.getDate() + 30);
+        document.getElementById('dueDate').value = dueDate.toISOString().split('T')[0];
     </script>
 </body>
 </html>
