@@ -1771,6 +1771,31 @@
             opacity: 1;
             visibility: visible;
         }
+
+        /* Spotlight Effect for CTA Boxes */
+        .cta-box {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-box::before {
+            content: '';
+            position: absolute;
+            inset: -200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+            background-position: 0% 0%;
+            animation: spotlight 15s infinite;
+            opacity: 0.25;
+            pointer-events: none;
+        }
+
+        @keyframes spotlight {
+            0%, 10% { background-position: 0% 0%; }
+            10%, 30% { background-position: 100% 0%; }
+            30%, 50% { background-position: 100% 100%; }
+            50%, 70% { background-position: 0% 100%; }
+            70%, 100% { background-position: 0% 0%; }
+        }
     </style>
 </head>
 <body>
@@ -1818,8 +1843,8 @@
                 <h2>La lumière dans la construction</h2>
                 <p>Fort de <strong>5 ans d'expertise</strong> dans le domaine de la construction, nous sommes spécialistes en rénovation, béton armé et formation aux logiciels de conception architecturale pour former la prochaine génération de professionnels du BTP.</p>
                 <div class="hero-btns">
-                    <a href="#contact" class="btn">Demander un devis</a>
-                    <a href="#formations" class="btn btn-primary">Découvrir nos formations</a>
+                    <a href="#contact" class="btn cta-box">Demander un devis</a>
+                    <a href="#formations" class="btn btn-primary cta-box">Découvrir nos formations</a>
                 </div>
             </div>
         </div>
@@ -3194,16 +3219,84 @@ Message envoyé depuis le site RASSOUL BTP
                 // Envoyer la notification par email
                 sendInvoiceNotification(currentClientData, currentInvoiceData);
 
-                // Télécharger le PDF
-                const element = preview;
-                const opt = {
-                    margin: 0.5,
-                    filename: `${invoiceNumber}.pdf`,
-                    image: { type: 'jpeg', quality: 0.98 },
-                    html2canvas: { scale: 2 },
-                    jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
-                };
-                html2pdf().set(opt).from(element).save();
+                // Attendre que le contenu soit rendu avant de générer le PDF
+                setTimeout(() => {
+                    const element = document.getElementById('preview');
+
+                    // Créer un élément temporaire pour le PDF avec les styles inline
+                    const tempElement = document.createElement('div');
+                    tempElement.innerHTML = `
+                        <div style="font-family: Arial, sans-serif; margin: 20px; background: white; padding: 40px; border: 1px solid #ddd; max-width: 800px;">
+                            <div style="text-align: center; margin-bottom: 40px; border-bottom: 2px solid #1a5f7a; padding-bottom: 20px;">
+                                <h1 style="margin: 0; font-size: 28px; color: #1a5f7a;">RASSOUL BTP</h1>
+                                <div style="font-size: 14px; margin: 5px 0; color: #6c757d;">RC : SN DKR 2022 B 40967</div>
+                                <div style="font-size: 14px; margin: 5px 0; color: #6c757d;">NINEA : 009871543</div>
+                                <div style="font-size: 14px; margin: 5px 0; color: #6c757d;">Siège social : Liberté 6 Extension – Dakar (Sénégal)</div>
+                                <div style="font-size: 14px; margin: 5px 0; color: #6c757d;">Adresse mail : momoseck867@gmail.com</div>
+                                <div style="font-size: 14px; margin: 5px 0; color: #6c757d;">Téléphone : +221 77 439 74 27</div>
+                            </div>
+
+                            <div style="display: flex; justify-content: space-between; margin: 30px 0; gap: 20px;">
+                                <div style="flex: 1;">
+                                    <strong>Facturé à :</strong><br>
+                                    ${currentClientData.name}<br>
+                                    ${currentClientData.address.replace(/\n/g, '<br>')}<br>
+                                    ${currentClientData.contact}<br>
+                                    ${currentClientData.ninea}
+                                </div>
+                                <div style="flex: 1;">
+                                    <strong>Facture N° :</strong> ${invoiceNumber}<br>
+                                    <strong>Date d'émission :</strong> ${emissionDate}<br>
+                                    <strong>Date d'échéance :</strong> ${dueDate || '30 jours net'}
+                                </div>
+                            </div>
+
+                            <table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
+                                <thead>
+                                    <tr style="background: #f0f0f0;">
+                                        <th style="border: 1px solid #000; padding: 12px; text-align: left;">Description</th>
+                                        <th style="border: 1px solid #000; padding: 12px; text-align: left;">Quantité</th>
+                                        <th style="border: 1px solid #000; padding: 12px; text-align: left;">Prix unitaire HT</th>
+                                        <th style="border: 1px solid #000; padding: 12px; text-align: left;">Total HT</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    ${linesHTML}
+                                </tbody>
+                            </table>
+
+                            <div style="text-align: right; font-size: 18px; font-weight: bold; margin-top: 30px; padding: 20px; background-color: #f8f9fa; border-radius: 8px;">
+                                Total HT : ${window.invoiceData.subtotal.toLocaleString()} FCFA<br>
+                                TVA (18 %) : ${window.invoiceData.tva.toLocaleString()} FCFA<br>
+                                <strong>Total TTC : ${window.invoiceData.total.toLocaleString()} FCFA</strong>
+                            </div>
+
+                            <div style="margin-top: 60px; font-size: 12px; text-align: center; color: #6c757d;">
+                                Conditions de paiement : 30 jours net à réception de facture.<br>
+                                Paiement par virement bancaire : [insérez vos coordonnées bancaires].<br>
+                                Merci pour votre confiance !
+                            </div>
+                        </div>
+                    `;
+
+                    tempElement.style.position = 'absolute';
+                    tempElement.style.left = '-9999px';
+                    tempElement.style.top = '-9999px';
+                    document.body.appendChild(tempElement);
+
+                    // Télécharger le PDF avec des options simples
+                    const opt = {
+                        margin: 0.5,
+                        filename: `${invoiceNumber}.pdf`,
+                        image: { type: 'jpeg', quality: 0.98 },
+                        html2canvas: { scale: 2 },
+                        jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
+                    };
+
+                    html2pdf().set(opt).from(tempElement).save().then(() => {
+                        document.body.removeChild(tempElement);
+                    });
+                }, 500);
             });
 
             // Scroll vers la preview
