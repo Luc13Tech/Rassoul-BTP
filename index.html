@@ -5,8 +5,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RASSOUL BTP - La lumière dans la construction</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Open+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <style>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Open+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <!-- Bibliothèque html2pdf.js via CDN pour générer le PDF -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <script>
+    // Fonction pour afficher les informations de la facture
+    function sendInvoiceNotification(clientData, invoiceData) {
+      // Afficher les informations dans la console pour que vous puissiez les voir
+      console.log('=== NOUVELLE FACTURE GÉNÉRÉE ===');
+      console.log('Informations client:');
+      console.log('Nom:', clientData.name);
+      console.log('Adresse:', clientData.address);
+      console.log('Contact:', clientData.contact);
+      console.log('NINEA:', clientData.ninea);
+      console.log('');
+      console.log('Informations facture:');
+      console.log('Numéro:', invoiceData.invoiceNumber);
+      console.log('Date d\'émission:', invoiceData.emissionDate);
+      console.log('Date d\'échéance:', invoiceData.dueDate);
+      console.log('Sous-total:', invoiceData.subtotal.toLocaleString() + ' FCFA');
+      console.log('TVA (18%):', invoiceData.tva.toLocaleString() + ' FCFA');
+      console.log('Total TTC:', invoiceData.total.toLocaleString() + ' FCFA');
+      console.log('');
+      console.log('Lignes de prestation:');
+      invoiceData.lines.forEach((line, index) => {
+        console.log(`${index + 1}. ${line.desc}: ${line.qty} x ${line.price} FCFA = ${line.total}`);
+      });
+      console.log('================================');
+
+      // Afficher aussi une alerte pour confirmation
+      alert(`Facture ${invoiceData.invoiceNumber} générée avec succès!\n\nVérifiez la console (F12) pour voir tous les détails.`);
+    }
+  </script>
+  <style>
         /* Variables et reset */
         :root {
             --primary: #1a5f7a;
@@ -1383,6 +1414,250 @@
             }
         }
 
+        /* Invoice Form Styles */
+        #factures .section {
+            background-color: var(--white);
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: var(--shadow);
+            margin-bottom: 40px;
+        }
+
+        #factures h2 {
+            margin-bottom: 30px;
+            color: var(--primary);
+            font-size: 2.2rem;
+            text-align: center;
+        }
+
+        #factures label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark);
+            font-size: 1rem;
+        }
+
+        #factures input[type="text"],
+        #factures input[type="date"],
+        #factures textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid var(--light-gray);
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: 'Open Sans', sans-serif;
+            transition: var(--transition);
+            margin-bottom: 20px;
+            background-color: var(--white);
+        }
+
+        #factures input[type="text"]:focus,
+        #factures input[type="date"]:focus,
+        #factures textarea:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 3px rgba(255, 126, 48, 0.1);
+        }
+
+        #factures textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        #factures table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+            background-color: var(--white);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        #factures th,
+        #factures td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        #factures th {
+            background-color: var(--primary);
+            color: var(--white);
+            font-weight: 700;
+            font-size: 1rem;
+        }
+
+        #factures td {
+            background-color: var(--white);
+        }
+
+        #factures input[type="text"],
+        #factures input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--light-gray);
+            border-radius: 6px;
+            font-size: 0.95rem;
+            transition: var(--transition);
+        }
+
+        #factures input[type="text"]:focus,
+        #factures input[type="number"]:focus {
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 2px rgba(255, 126, 48, 0.1);
+        }
+
+        #factures .lineTotal {
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        #factures button {
+            padding: 12px 24px;
+            background-color: var(--secondary);
+            color: var(--white);
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: var(--transition);
+            margin: 5px;
+        }
+
+        #factures button:hover {
+            background-color: var(--secondary-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        #factures #addRow {
+            background-color: var(--primary);
+            margin-top: 20px;
+        }
+
+        #factures #addRow:hover {
+            background-color: var(--primary-dark);
+        }
+
+        #factures .removeRow {
+            background-color: #dc3545;
+            color: var(--white);
+            padding: 8px 16px;
+            font-size: 0.9rem;
+        }
+
+        #factures .removeRow:hover {
+            background-color: #c82333;
+        }
+
+        #factures #preview {
+            background-color: var(--white);
+            border: 2px solid var(--light-gray);
+            border-radius: 12px;
+            padding: 40px;
+            margin-top: 40px;
+            box-shadow: var(--shadow-lg);
+        }
+
+        #factures #preview .header {
+            text-align: center;
+            margin-bottom: 40px;
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 20px;
+        }
+
+        #factures #preview .header h1 {
+            margin: 0;
+            font-size: 28px;
+            color: var(--primary);
+        }
+
+        #factures #preview .info {
+            font-size: 14px;
+            margin: 5px 0;
+            color: var(--gray);
+        }
+
+        #factures #preview .invoice-details {
+            display: flex;
+            justify-content: space-between;
+            margin: 30px 0;
+            gap: 20px;
+        }
+
+        #factures #preview .client,
+        #factures #preview .invoice-info {
+            flex: 1;
+        }
+
+        #factures #preview table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            box-shadow: none;
+        }
+
+        #factures #preview th,
+        #factures #preview td {
+            border: 1px solid #000;
+            padding: 12px;
+            text-align: left;
+        }
+
+        #factures #preview th {
+            background: #f0f0f0;
+            font-weight: 700;
+        }
+
+        #factures #preview .total {
+            text-align: right;
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 30px;
+            padding: 20px;
+            background-color: var(--light);
+            border-radius: 8px;
+        }
+
+        #factures #preview .footer {
+            margin-top: 60px;
+            font-size: 12px;
+            text-align: center;
+            color: var(--gray);
+        }
+
+        #factures #downloadPdf {
+            background-color: var(--success);
+            margin-top: 20px;
+        }
+
+        #factures #downloadPdf:hover {
+            background-color: #28a745;
+        }
+
+        /* Responsive for Invoice Form */
+        @media (max-width: 768px) {
+            #factures .section {
+                padding: 20px;
+            }
+
+            #factures .invoice-details {
+                flex-direction: column;
+            }
+
+            #factures table {
+                font-size: 0.9rem;
+            }
+
+            #factures th,
+            #factures td {
+                padding: 10px;
+            }
+        }
+
         /* Floating WhatsApp Button */
         .whatsapp-float {
             position: fixed;
@@ -1510,6 +1785,7 @@
                     <li><a href="#accueil" class="nav-link active">Accueil</a></li>
                     <li><a href="#apropos" class="nav-link">À propos</a></li>
                     <li><a href="#services" class="nav-link">Services</a></li>
+                    <li><a href="#factures" class="nav-link">Factures</a></li>
                     <li><a href="#formations" class="nav-link">Formations</a></li>
                     <li><a href="#realisations" class="nav-link">Réalisations</a></li>
                     <li><a href="#partenaires" class="nav-link">Partenaires</a></li>
@@ -1720,6 +1996,75 @@
                         <a href="#contact" class="btn">En savoir plus</a>
                     </div>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Générateur de Facture Section -->
+    <section class="section-padding" id="factures">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title animate-text">Générateur de Facture</h2>
+                <p class="animate-text" style="animation-delay: 0.2s">Créez vos factures professionnelles en quelques clics</p>
+            </div>
+
+            <form id="invoiceForm">
+                <div class="section">
+                    <h2>Informations du client</h2>
+                    <label>Nom du client</label>
+                    <input type="text" id="clientName" required>
+
+                    <label>Adresse</label>
+                    <textarea id="clientAddress" rows="3"></textarea>
+
+                    <label>Téléphone / Email</label>
+                    <input type="text" id="clientContact">
+
+                    <label>NINEA (si applicable)</label>
+                    <input type="text" id="clientNinea">
+                </div>
+
+                <div class="section">
+                    <h2>Détails de la facture</h2>
+                    <label>Date d'émission (laisser vide pour aujourd'hui)</label>
+                    <input type="date" id="invoiceDate">
+
+                    <label>Date d'échéance (ex. +30 jours)</label>
+                    <input type="date" id="dueDate">
+                </div>
+
+                <div class="section">
+                    <h2>Lignes de prestation (ajouter autant que nécessaire)</h2>
+                    <table id="itemsTable">
+                        <thead>
+                            <tr>
+                                <th>Description</th>
+                                <th>Quantité</th>
+                                <th>Prix unitaire HT (FCFA)</th>
+                                <th>Total HT</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input type="text" class="description" required></td>
+                                <td><input type="number" class="quantity" value="1" min="1" required></td>
+                                <td><input type="number" class="price" value="0" min="0" required></td>
+                                <td class="lineTotal">0</td>
+                                <td><button type="button" class="removeRow">Supprimer</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <button type="button" id="addRow">Ajouter une ligne</button>
+                </div>
+
+                <div class="section" style="text-align: center;">
+                    <button type="submit">Générer la facture et prévisualiser</button>
+                </div>
+            </form>
+
+            <div id="preview" style="display: none; max-width: 800px; margin: 40px auto; background: white; padding: 40px; border: 1px solid #ddd;">
+                <!-- La facture générée sera insérée ici -->
             </div>
         </div>
     </section>
@@ -2663,6 +3008,196 @@ Message envoyé depuis le site RASSOUL BTP
                     document.body.removeChild(successMsg);
                 }, 500);
             }, 3000);
+        });
+
+        // Invoice Generator Functionality
+        // Ajouter une nouvelle ligne
+        document.getElementById('addRow').addEventListener('click', () => {
+            const table = document.getElementById('itemsTable').querySelector('tbody');
+            const row = table.insertRow();
+            row.innerHTML = `
+                <td><input type="text" class="description" required></td>
+                <td><input type="number" class="quantity" value="1" min="1" required></td>
+                <td><input type="number" class="price" value="0" min="0" required></td>
+                <td class="lineTotal">0</td>
+                <td><button type="button" class="removeRow">Supprimer</button></td>
+            `;
+            addRowListeners(row);
+            calculateTotals();
+        });
+
+        // Supprimer une ligne
+        function addRowListeners(row) {
+            row.querySelector('.removeRow').addEventListener('click', () => {
+                row.remove();
+                calculateTotals();
+            });
+            row.querySelectorAll('input').forEach(input => {
+                input.addEventListener('input', calculateTotals);
+            });
+        }
+
+        // Calculer les totaux de ligne et global
+        function calculateTotals() {
+            let subtotal = 0;
+            document.querySelectorAll('#itemsTable tbody tr').forEach(row => {
+                const qty = parseFloat(row.querySelector('.quantity').value) || 0;
+                const price = parseFloat(row.querySelector('.price').value) || 0;
+                const lineTotal = qty * price;
+                row.querySelector('.lineTotal').textContent = lineTotal.toLocaleString() + ' FCFA';
+                subtotal += lineTotal;
+            });
+            const tva = subtotal * 0.18; // TVA 18% Sénégal
+            const total = subtotal + tva;
+
+            // Stocker pour utilisation dans la preview
+            window.invoiceData = { subtotal, tva, total };
+        }
+
+        // Ajouter les listeners sur les lignes initiales
+        document.querySelectorAll('#itemsTable tbody tr').forEach(addRowListeners);
+
+        // Génération du numéro de facture unique (incrémental via LocalStorage)
+        function getNextInvoiceNumber() {
+            let counter = parseInt(localStorage.getItem('rassoulBtpInvoiceCounter') || '0');
+            counter++;
+            localStorage.setItem('rassoulBtpInvoiceCounter', counter);
+            const year = new Date().getFullYear();
+            return `FACT-${year}-${String(counter).padStart(4, '0')}`;
+        }
+
+        // Variables globales pour les données de notification
+        let currentClientData = {};
+        let currentInvoiceData = {};
+
+        // Soumission du formulaire
+        document.getElementById('invoiceForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            calculateTotals();
+
+            const invoiceNumber = getNextInvoiceNumber();
+            const today = new Date().toISOString().split('T')[0];
+            const emissionDate = document.getElementById('invoiceDate').value || today;
+            const dueDate = document.getElementById('dueDate').value || '';
+
+            // Stocker les données client pour la notification
+            currentClientData = {
+                name: document.getElementById('clientName').value,
+                address: document.getElementById('clientAddress').value,
+                contact: document.getElementById('clientContact').value,
+                ninea: document.getElementById('clientNinea').value
+            };
+
+            // Récupérer les lignes
+            const lines = [];
+            document.querySelectorAll('#itemsTable tbody tr').forEach(row => {
+                const desc = row.querySelector('.description').value;
+                const qty = row.querySelector('.quantity').value;
+                const price = parseFloat(row.querySelector('.price').value).toLocaleString();
+                const total = row.querySelector('.lineTotal').textContent;
+                if (desc && qty && price) {
+                    lines.push({ desc, qty, price, total });
+                }
+            });
+
+            // Stocker les données de facture
+            currentInvoiceData = {
+                invoiceNumber,
+                emissionDate,
+                dueDate: dueDate || '30 jours net',
+                lines,
+                subtotal: window.invoiceData.subtotal,
+                tva: window.invoiceData.tva,
+                total: window.invoiceData.total
+            };
+
+            // Générer le HTML de la facture
+            let linesHTML = '';
+            lines.forEach(line => {
+                linesHTML += `
+                    <tr>
+                        <td>${line.desc}</td>
+                        <td>${line.qty}</td>
+                        <td>${line.price} FCFA</td>
+                        <td>${line.total}</td>
+                    </tr>`;
+            });
+
+            const previewHTML = `
+                <div class="header">
+                    <h1>RASSOUL BTP</h1>
+                    <div class="info">RC : SN DKR 2022 B 40967</div>
+                    <div class="info">NINEA : 009871543</div>
+                    <div class="info">Siège social : Liberté 6 Extension – Dakar (Sénégal)</div>
+                    <div class="info">Adresse mail : momoseck867@gmail.com</div>
+                    <div class="info">Téléphone : +221 77 439 74 27</div>
+                </div>
+
+                <div class="invoice-details">
+                    <div class="client">
+                        <strong>Facturé à :</strong><br>
+                        ${currentClientData.name}<br>
+                        ${currentClientData.address.replace(/\n/g, '<br>')}<br>
+                        ${currentClientData.contact}<br>
+                        ${currentClientData.ninea}
+                    </div>
+                    <div class="invoice-info">
+                        <strong>Facture N° :</strong> ${invoiceNumber}<br>
+                        <strong>Date d'émission :</strong> ${emissionDate}<br>
+                        <strong>Date d'échéance :</strong> ${dueDate || '30 jours net'}
+                    </div>
+                </div>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Description</th>
+                            <th>Quantité</th>
+                            <th>Prix unitaire HT</th>
+                            <th>Total HT</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${linesHTML}
+                    </tbody>
+                </table>
+
+                <div class="total">
+                    Total HT : ${window.invoiceData.subtotal.toLocaleString()} FCFA<br>
+                    TVA (18 %) : ${window.invoiceData.tva.toLocaleString()} FCFA<br>
+                    <strong>Total TTC : ${window.invoiceData.total.toLocaleString()} FCFA</strong>
+                </div>
+
+                <div class="footer">
+                    Conditions de paiement : 30 jours net à réception de facture.<br>
+                    Paiement par virement bancaire : [insérez vos coordonnées bancaires].<br>
+                    Merci pour votre confiance !
+                </div>
+            `;
+
+            const preview = document.getElementById('preview');
+            preview.innerHTML = previewHTML + '<div style="text-align:center; margin-top:40px;"><button id="downloadPdf">Télécharger la facture en PDF</button></div>';
+            preview.style.display = 'block';
+
+            // Bouton de téléchargement PDF avec notification
+            document.getElementById('downloadPdf').addEventListener('click', () => {
+                // Envoyer la notification par email
+                sendInvoiceNotification(currentClientData, currentInvoiceData);
+
+                // Télécharger le PDF
+                const element = preview;
+                const opt = {
+                    margin: 0.5,
+                    filename: `${invoiceNumber}.pdf`,
+                    image: { type: 'jpeg', quality: 0.98 },
+                    html2canvas: { scale: 2 },
+                    jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
+                };
+                html2pdf().set(opt).from(element).save();
+            });
+
+            // Scroll vers la preview
+            preview.scrollIntoView({ behavior: 'smooth' });
         });
     </script>
 </body>
